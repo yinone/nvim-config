@@ -31,11 +31,12 @@ null_ls.setup({
       extra_filetypes = { "njk" },
       prefer_local = "node_modules/.bin",
     }),
-    -- -- Diagnostics  ---------------------
+    -- Diagnostics  ---------------------
     -- diagnostics.eslint.with({
     --   prefer_local = "node_modules/.bin",
     -- }),
-    -- -- code actions ---------------------
+    
+    -- code actions -------------- w-------
     -- code_actions.gitsigns,
     -- code_actions.eslint.with({
     --   prefer_local = "node_modules/.bin",

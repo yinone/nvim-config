@@ -17,7 +17,6 @@ local servers = {
   cssmodules_ls = require("lsp.lang.cssmodule"),
   vimls = require("lsp.lang.vim"),
   dockerls = require("lsp.lang.docker"),
-  zk = require("lsp.lang.markdown")
 
 }
 
