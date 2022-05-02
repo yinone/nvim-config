@@ -1,16 +1,18 @@
--- -- 自定义图标
+-- 自定义图标
 vim.diagnostic.config({
-  virtual_text = false,
+  virtual_text = true,
   signs = true,
-  update_in_insert = false,
+  update_in_insert = false
 })
+
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
--- lspkind
+--vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+--
 local lspkind = require("lspkind")
 lspkind.init({
   -- default: true

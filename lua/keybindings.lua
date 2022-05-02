@@ -58,10 +58,6 @@ map("i", "<C-s>", "<ESC>:w!<CR>", opt)
 map("n", "<C-s>", "<ESC>:w!<CR>", opt)
 map("n", "<leader>x", ":x<CR>", opt)
 
--- insert 模式下，跳到行首行尾
-map("i", "<leader>ii", "<ESC>I", opt)
-map("i", "<leader>aa", "<ESC>A", opt)
-
 -- 插件快捷键
 local pluginKeys = {}
 
@@ -140,11 +136,6 @@ pluginKeys.telescopeList = {
   },
 }
 
-------------------------goto preview ---------------
--- map("n", "gd", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", opt)
--- map("n", "gi", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", opt)
--- map("n", "gw", "<cmd>lua require('goto-preview').close_all_win()<CR>", opt)
--- map("n", "gr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", opt)
 
 --------------------------------- lsp 回调函数快捷键设置 -----------------------
 pluginKeys.mapLSP = function(mapbuf)

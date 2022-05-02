@@ -41,10 +41,6 @@ packer.startup({
     -- tokyonight
     use 'folke/tokyonight.nvim'
     
-    -- jsx syntax highlight
-    use 'HerringtonDarkholme/yats.vim'
-    use 'MaxMEllon/vim-jsx-pretty'
-    
     -- git commit author
     use 'APZelos/blamer.nvim'
     use 'tpope/vim-fugitive'
@@ -118,9 +114,8 @@ packer.startup({
     -- gitsigns
     use({
       "lewis6991/gitsigns.nvim",
-      requires = { "nvim-lua/plenary.nvim" },
       config = function ()
-        require("plugin-config.gitsigns") 
+        require("gitsigns").setup()
       end
     })
 
@@ -131,7 +126,7 @@ packer.startup({
         require('plugin-config.indent')
       end
     })
-
+    
     -- nvim-treesitter
     use({
       "nvim-treesitter/nvim-treesitter",
@@ -181,7 +176,6 @@ packer.startup({
     use 'neovim/nvim-lspconfig'
     use 'williamboman/nvim-lsp-installer'
     use 'tami5/lspsaga.nvim'
-    use 'hrsh7th/cmp-nvim-lsp-signature-help'
     use({ "jose-elias-alvarez/nvim-lsp-ts-utils", requires = "nvim-lua/plenary.nvim" })
 
     -- comment
@@ -219,14 +213,6 @@ packer.startup({
       "akinsho/toggleterm.nvim",
       config = function()
         require("plugin-config.toggleterm") 
-      end
-    }
-
-    -- goto preview ---
-    use {
-      'rmagatti/goto-preview',
-      config = function()
-        require('goto-preview').setup {}
       end
     }
 
