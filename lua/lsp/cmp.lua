@@ -2,10 +2,27 @@
 -- https://github.com/hrsh7th/nvim-cmp
 -- https://github.com/onsails/lspkind-nvim
 
---local lspkind = require("lspkind")
+local lspkind = require("lspkind")
 local cmp = require("cmp")
 
 cmp.setup({
+
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = "symbol_text",
+      --mode = 'symbol', -- show only symbol annotations
+
+      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      -- The function below will be called before any actual modifications from lspkind
+      -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+      before = function(entry, vim_item)
+        -- Source 显示提示来源
+        vim_item.menu = "[" .. string.upper(entry.source.name) .. "]"
+        return vim_item
+      end,
+    }),
+  },
+
   -- 指定 snippet 引擎
   snippet = {
     expand = function(args)
@@ -36,6 +53,7 @@ cmp.setup({
 
 -- Use buffer source for `/`.
 cmp.setup.cmdline("/", {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = {
     { name = "buffer" },
   },
