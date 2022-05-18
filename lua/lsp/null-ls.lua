@@ -11,7 +11,8 @@ null_ls.setup({
   sources = {
     -- Formatting ---------------------
     -- frontend
-    formatting.prettier.with({ -- 比默认少了 markdown
+    formatting.prettierd.with({ -- 比默认少了 markdown
+      prefer_local = "node_modules/.bin",
       filetypes = {
         "javascript",
         "javascriptreact",
@@ -22,13 +23,17 @@ null_ls.setup({
         "scss",
         "less",
         "html",
-        "json",
+        "jsonc",
         "yaml",
+        "markdown",
         "graphql",
+        "handlebars",
       },
-      extra_filetypes = { "njk" },
-      prefer_local = "node_modules/.bin",
+      env = {
+        string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('~/.config/nvim/lua/linter-config/.prettierrc.json')),
+      },
     }),
+    formatting.fixjson.with {}
   },
   -- #{m}: message
   -- #{s}: source name (defaults to null-ls if not specified)

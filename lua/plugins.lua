@@ -1,4 +1,3 @@
-local packer = require("packer")
 
 local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
@@ -45,7 +44,14 @@ packer.startup({
     use 'APZelos/blamer.nvim'
     use 'tpope/vim-fugitive'
     use 'rhysd/conflict-marker.vim'
-
+    
+    -- go to num line
+    use {
+      'nacro90/numb.nvim',
+      config = function()
+        require('numb').setup()
+      end
+    }
     --- typescript comment
     use {
       'JoosepAlviste/nvim-ts-context-commentstring',
@@ -73,6 +79,7 @@ packer.startup({
     -- bufferline
     use({
       "akinsho/bufferline.nvim",
+      branch = 'main',
       requires = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" },
       config = function ()
         require("plugin-config.bufferline")
@@ -84,10 +91,14 @@ packer.startup({
       "nvim-telescope/telescope.nvim",
       requires = {
         "nvim-lua/plenary.nvim",
-        "LinArcX/telescope-env.nvim"
+        "LinArcX/telescope-env.nvim",
+        {
+          'nvim-telescope/telescope-fzf-native.nvim', run = 'make' 
+        }
       },
       config = function ()
         require("plugin-config.telescope")
+        -- This will load fzy_native and have it override the default file sorter
       end
     })
 
@@ -122,7 +133,7 @@ packer.startup({
     -- indent-blankline
     use({
       'lukas-reineke/indent-blankline.nvim',
-      config = function() 
+      config = function ()
         require('plugin-config.indent')
       end
     })
@@ -135,6 +146,17 @@ packer.startup({
         require("plugin-config.treesitter")
       end
     })
+    
+    -- treesitter-context
+    use 'nvim-treesitter/nvim-treesitter-context'
+
+    -- Smooth scrolling
+    use {
+      'karb94/neoscroll.nvim',
+      config = function()
+        require('neoscroll').setup()
+      end
+    }
 
     -- nvim-autopairs
     use({
@@ -211,6 +233,7 @@ packer.startup({
     -- toggle term
     use {
       "akinsho/toggleterm.nvim",
+      branch = 'main',
       config = function()
         require("plugin-config.toggleterm") 
       end

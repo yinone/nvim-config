@@ -117,6 +117,8 @@ map("n", "<leader>fg", ":Telescope live_grep<CR>", opt)
 map("n", "<leader>fb", ":Telescope buffers<CR>", opt)
 -- helps
 map("n", "<leader>fh", ":Telescope help_tags<CR>", opt)
+-- registers
+map("n", "<leader>fr", ":Telescope registers<CR>", opt)
 
 pluginKeys.telescopeList = {
   i = {
