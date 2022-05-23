@@ -147,9 +147,6 @@ packer.startup({
       end
     })
     
-    -- treesitter-context
-    use 'nvim-treesitter/nvim-treesitter-context'
-
     -- Smooth scrolling
     use {
       'karb94/neoscroll.nvim',

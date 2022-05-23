@@ -91,8 +91,8 @@ vim.g.blamer_show_in_insert_modes = 0
 
 -------------------------- Bufferline ------------------------------
 -- 左右Tab切换
-map("n", "<C-h>", ":BufferLineCyclePrev<CR>", opt)
-map("n", "<C-l>", ":BufferLineCycleNext<CR>", opt)
+map("n", "<leader>f", ":BufferLineCycleNext<CR>", opt)
+map("n", "<leader>d", ":BufferLineCyclePrev<CR>", opt)
 -- 关闭
 --"moll/vim-bbye"
 map("n", "<leader>bd", ":Bdelete!<CR>", opt)
