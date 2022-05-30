@@ -90,7 +90,7 @@ vim.o.showtabline = 2
 vim.o.showmode = false
 -- 使用系统剪切板
 vim.o.clipboard = 'unnamed'
-vim.o.history = 99
+vim.o.history = 1000 
 
 ---- disable_distribution_plugins ----
 vim.g.loaded_gzip              = 1

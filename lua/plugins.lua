@@ -102,6 +102,26 @@ packer.startup({
       end
     })
 
+    -- clipboard
+    use {
+      "AckslD/nvim-neoclip.lua",
+      requires = {
+        {'tami5/sqlite.lua', module = 'sqlite'},
+        {'nvim-telescope/telescope.nvim'},
+        -- {'ibhagwan/fzf-lua'},
+      },
+      config = function()
+        require('neoclip').setup({
+          enable_persistent_history = true,
+          continuous_sync = true,
+          on_paste = {
+            set_reg = true
+          },
+          default_register = {'"', '+', '*'} 
+        })
+      end,
+    }
+
     -- gps
     use({
       'SmiteshP/nvim-gps',

@@ -12,6 +12,8 @@ nvim_tree.setup({
   git = {
     enable = true,
   },
+  reload_on_bufenter = true,
+  disable_netrw = true,
   -- project plugin 需要这样设置
   update_cwd = true,
   update_focused_file = {
@@ -22,7 +24,7 @@ nvim_tree.setup({
   filters = {
     dotfiles = false,
     custom = { ".git", ".cache" },
-    exclude = {'node_modules'}
+    exclude = {'node_modules', '.gitignore', '.env.local'}
   },
   view = {
     -- 宽度
@@ -45,6 +47,11 @@ nvim_tree.setup({
   actions = {
     open_file = {
       resize_window = true
+    }
+  },
+  renderer = {
+    indent_markers = {
+      enable = true
     }
   }
 })
