@@ -1,4 +1,3 @@
-
 local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 local paccker_bootstrap
@@ -36,15 +35,15 @@ packer.startup({
 
     -- start screen
     use 'mhinz/vim-startify'
-  
+
     -- tokyonight
     use 'folke/tokyonight.nvim'
-    
+
     -- git commit author
     use 'APZelos/blamer.nvim'
     use 'tpope/vim-fugitive'
     use 'rhysd/conflict-marker.vim'
-    
+
     -- go to num line
     use {
       'nacro90/numb.nvim',
@@ -55,7 +54,7 @@ packer.startup({
     --- typescript comment
     use {
       'JoosepAlviste/nvim-ts-context-commentstring',
-      config = function ()
+      config = function()
         require('nvim-treesitter.configs').setup {
           context_commentstring = {
             enable = true
@@ -66,12 +65,12 @@ packer.startup({
 
     ------ tmux navigator
     use 'christoomey/vim-tmux-navigator'
-    
+
     -- nvim-tree
     use({
       "kyazdani42/nvim-tree.lua",
       requires = "kyazdani42/nvim-web-devicons",
-      config = function ()
+      config = function()
         require("plugin-config.nvim-tree")
       end
     })
@@ -81,7 +80,7 @@ packer.startup({
       "akinsho/bufferline.nvim",
       branch = 'main',
       requires = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" },
-      config = function ()
+      config = function()
         require("plugin-config.bufferline")
       end
     })
@@ -93,10 +92,10 @@ packer.startup({
         "nvim-lua/plenary.nvim",
         "LinArcX/telescope-env.nvim",
         {
-          'nvim-telescope/telescope-fzf-native.nvim', run = 'make' 
+          'nvim-telescope/telescope-fzf-native.nvim', run = 'make'
         }
       },
-      config = function ()
+      config = function()
         require("plugin-config.telescope")
         -- This will load fzy_native and have it override the default file sorter
       end
@@ -106,19 +105,12 @@ packer.startup({
     use {
       "AckslD/nvim-neoclip.lua",
       requires = {
-        {'tami5/sqlite.lua', module = 'sqlite'},
-        {'nvim-telescope/telescope.nvim'},
+        { 'tami5/sqlite.lua', module = 'sqlite' },
+        { 'nvim-telescope/telescope.nvim' },
         -- {'ibhagwan/fzf-lua'},
       },
       config = function()
-        require('neoclip').setup({
-          enable_persistent_history = true,
-          continuous_sync = true,
-          on_paste = {
-            set_reg = true
-          },
-          default_register = {'"', '+', '*'} 
-        })
+        require('plugin-config.neoclip')
       end,
     }
 
@@ -126,26 +118,26 @@ packer.startup({
     use({
       'SmiteshP/nvim-gps',
       requires = "nvim-treesitter/nvim-treesitter",
-      config = function ()
+      config = function()
         require("nvim-gps").setup()
       end
     })
 
-    -- statusline 
+    -- statusline
     use {
       'nvim-lualine/lualine.nvim',
       requires = {
         { 'kyazdani42/nvim-web-devicons', opt = true },
       },
-      config = function ()
+      config = function()
         require("plugin-config.statusline")
       end
     }
-    
+
     -- gitsigns
     use({
       "lewis6991/gitsigns.nvim",
-      config = function ()
+      config = function()
         require("gitsigns").setup()
       end
     })
@@ -153,20 +145,20 @@ packer.startup({
     -- indent-blankline
     use({
       'lukas-reineke/indent-blankline.nvim',
-      config = function ()
+      config = function()
         require('plugin-config.indent')
       end
     })
-    
+
     -- nvim-treesitter
     use({
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
-      config = function ()
+      config = function()
         require("plugin-config.treesitter")
       end
     })
-    
+
     -- rainbow
     use 'p00f/nvim-ts-rainbow'
 
@@ -181,7 +173,7 @@ packer.startup({
     -- nvim-autopairs
     use({
       'windwp/nvim-autopairs',
-      config = function ()
+      config = function()
         require("plugin-config.autopairs")
       end
     })
@@ -189,11 +181,11 @@ packer.startup({
     -- auto-close-tag
     use({
       'windwp/nvim-ts-autotag',
-      config = function ()
+      config = function()
         require('nvim-ts-autotag').setup()
       end
     })
-    
+
     use({
       "jose-elias-alvarez/null-ls.nvim",
       requires = { "nvim-lua/plenary.nvim" },
@@ -228,16 +220,16 @@ packer.startup({
       "ur4ltz/surround.nvim",
       config = function()
         require("plugin-config.surround")
-      end 
+      end
     })
-    
+
     -- JSON 增强
     use("b0o/schemastore.nvim")
 
-    -- nvim-colorizer 
+    -- nvim-colorizer
     use({
       'norcalli/nvim-colorizer.lua',
-      config = function ()
+      config = function()
         require('colorizer').setup()
       end
     })
@@ -245,7 +237,7 @@ packer.startup({
     -- nvim-notify
     use {
       'rcarriga/nvim-notify',
-      config = function() 
+      config = function()
         vim.notify = require("notify")
       end
     }
@@ -255,7 +247,7 @@ packer.startup({
       "akinsho/toggleterm.nvim",
       branch = 'main',
       config = function()
-        require("plugin-config.toggleterm") 
+        require("plugin-config.toggleterm")
       end
     }
 
@@ -280,9 +272,8 @@ packer.startup({
     compile_on_sync = true,
     display = {
       open_fn = function()
-          return require("packer.util").float({ border = "single" })
+        return require("packer.util").float({ border = "single" })
       end,
     },
   }
 })
-

@@ -33,7 +33,8 @@ null_ls.setup({
         string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('~/.config/nvim/lua/linter-config/.prettierrc.json')),
       },
     }),
-    formatting.fixjson.with {}
+    formatting.fixjson.with {},
+    formatting.lua_format.with {}
   },
   -- #{m}: message
   -- #{s}: source name (defaults to null-ls if not specified)
