@@ -14,6 +14,8 @@ nvim_tree.setup({
   },
   reload_on_bufenter = true,
   disable_netrw = true,
+  hijack_netrw = false,
+  hijack_cursor = true,
   -- project plugin 需要这样设置
   update_cwd = true,
   update_focused_file = {

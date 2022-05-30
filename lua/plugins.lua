@@ -167,6 +167,9 @@ packer.startup({
       end
     })
     
+    -- rainbow
+    use 'p00f/nvim-ts-rainbow'
+
     -- Smooth scrolling
     use {
       'karb94/neoscroll.nvim',
