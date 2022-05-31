@@ -1,11 +1,13 @@
 local status, nvim_tree = pcall(require, "nvim-tree")
 if not status then
-    vim.notify("没有找到 nvim-tree")
+  vim.notify("没有找到 nvim-tree")
   return
 end
 
 -- 列表操作快捷键
 local list_keys = require("keybindings").nvimTreeList
+local events = require('nvim-tree.events')
+local autocmds = require('../autocmds')
 
 nvim_tree.setup({
   -- 显示 git 状态图标
@@ -26,7 +28,7 @@ nvim_tree.setup({
   filters = {
     dotfiles = false,
     custom = { ".git", ".cache" },
-    exclude = {'node_modules', '.gitignore', '.env.local'}
+    exclude = { 'node_modules', '.gitignore', '.env.local' }
   },
   view = {
     -- 宽度
@@ -58,3 +60,11 @@ nvim_tree.setup({
   }
 })
 
+events.on_file_created(function(payload)
+
+  -- if string.match(payload.fname, "%.tsx$") then
+  --   vim.notify('reading')
+  --   vim.api.nvim_command("0r ~/.config/nvim/lua/snippets/react-component.tsx")
+  --   vim.api.nvim_command("set filetype=javascriptreact")
+  -- end
+end)

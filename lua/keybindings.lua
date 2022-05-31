@@ -89,6 +89,10 @@ pluginKeys.nvimTreeList = {
 vim.g.blamer_enabled = 1
 vim.g.blamer_show_in_insert_modes = 0
 
+
+------------------- vsnip ---------------------
+vim.g.vsnip_snippet_dir = vim.fn.expand('~/.config/nvim/lua/snippets')
+
 -------------------------- Bufferline ------------------------------
 -- 左右Tab切换
 map("n", "<leader>f", ":BufferLineCycleNext<CR>", opt)
