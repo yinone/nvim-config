@@ -267,6 +267,31 @@ pluginKeys.cmp = function(cmp)
   }
 end
 
+-------------------------http curl -------------------
+pluginKeys.restApi = function(rest)
+  
+  vim.api.nvim_create_user_command(
+    "RestRun",
+    function(opt)
+      rest.run()
+    end,
+    {
+      nargs = 0
+    }
+  )
+
+  vim.api.nvim_create_user_command(
+    "RestLast",
+    function(opt)
+      rest.last()
+    end,
+    {
+      nargs = 0
+    }
+  )
+
+end
+
 --------------------------- toggle term ------------------------------------------------
 map("n", '<leader>tt', ':exe v:count1 . "ToggleTerm"<CR>', opt)
 

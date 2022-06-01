@@ -190,7 +190,15 @@ packer.startup({
       "jose-elias-alvarez/null-ls.nvim",
       requires = { "nvim-lua/plenary.nvim" },
     })
-
+   
+    -- http curl
+    use {
+      "NTBBloodbath/rest.nvim",
+      requires = { "nvim-lua/plenary.nvim" },
+      config = function() 
+        require('plugin-config.restapi')
+      end
+    }
     -- waketime
     use 'wakatime/vim-wakatime'
 
