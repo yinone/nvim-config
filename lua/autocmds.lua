@@ -38,7 +38,7 @@ autocmd({ "BufWritePost" }, {
 })
 
 -- auto read file
-autocmd({ "BufNewFile", "BufReadPre"}, {
+autocmd({ "BufNewFile" }, {
   group = myAutoGroup,
   callback = createFile
 })
