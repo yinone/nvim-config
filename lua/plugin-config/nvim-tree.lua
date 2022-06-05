@@ -8,6 +8,8 @@ end
 local list_keys = require("keybindings").nvimTreeList
 local events = require('nvim-tree.events')
 local autocmds = require('../autocmds')
+local utils = require('.../utils.global') 
+local uv = vim.loop
 
 nvim_tree.setup({
   -- 显示 git 状态图标
@@ -61,10 +63,15 @@ nvim_tree.setup({
 })
 
 events.on_file_created(function(payload)
-
-  -- if string.match(payload.fname, "%.tsx$") then
-  --   vim.notify('reading')
-  --   vim.api.nvim_command("0r ~/.config/nvim/lua/snippets/react-component.tsx")
-  --   vim.api.nvim_command("set filetype=javascriptreact")
-  -- end
+  
+  local TEMPLATE;
+  local fd = uv.fs_open(vim.fn.expand(payload.fname), 'w+', 755)
+  
+  if string.match(payload.fname, "%.tsx$") then
+    TEMPLATE = vim.fn.expand('~/.config/nvim/lua/snippets/react-component.tsx')
+  end
+  
+  utils.readFile(TEMPLATE, function(data)
+    uv.fs_write(fd, data)
+  end)
 end)

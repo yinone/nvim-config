@@ -21,7 +21,7 @@ autocmd("TermOpen", {
 -- 保存时自动格式化
 autocmd("BufWritePre", {
   group = myAutoGroup,
-  pattern = { "*.ts", "*.js", "*.html", "*.tsx", "*.vue", "*.scss", "*.less", "*.css" },
+  pattern = { "*.ts", "*.js", "*.html", "*.tsx", "*.vue", "*.scss", "*.less", "*.css", "*.lua" },
   callback = vim.lsp.buf.formatting_sync,
 })
 
