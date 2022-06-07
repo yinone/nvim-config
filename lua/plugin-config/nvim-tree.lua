@@ -63,10 +63,13 @@ events.on_file_created(
       TEMPLATE = vim.fn.expand('~/.config/nvim/lua/snippets/react-component.tsx')
     end
 
-    utils.readFile(
-      TEMPLATE, function(data)
-        uv.fs_write(fd, data)
-      end
-    )
+    if TEMPLATE then
+      utils.readFile(
+        TEMPLATE, function(data)
+          uv.fs_write(fd, data)
+        end
+      )
+    end
+
   end
 )

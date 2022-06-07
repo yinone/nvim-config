@@ -118,6 +118,11 @@ map('n', '<leader>fr', ':Telescope neoclip<CR>', opt)
 -- projects
 map('n', '<leader>fp', ':Telescope projects<CR>', opt)
 
+-- git
+map('n', '<leader>gc', ':Telescope git_commits<CR>', opt)
+map('n', '<leader>gb', ':Telescope git_branches<CR>', opt)
+map('n', '<leader>gu', ':Telescope git_status<CR>', opt)
+
 pluginKeys.telescopeList = {
   i = {
     -- 上下移动
@@ -127,8 +132,8 @@ pluginKeys.telescopeList = {
     ['<Up>'] = 'move_selection_previous',
     -- 历史记录
     ['<C-n>'] = 'cycle_history_next',
-    ['<C-p>'] = 'cycle_history_prev',
-    -- 关闭窗口
+    -- ['<C-p>'] = 'cycle_history_prev',
+    -- -- 关闭窗口
     ['<C-c>'] = 'close',
     -- 预览窗口上下滚动
     ['<C-u>'] = 'preview_scrolling_up',
