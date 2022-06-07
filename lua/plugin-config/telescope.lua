@@ -32,7 +32,6 @@ telescope.setup(
 telescope.load_extension('env');
 telescope.load_extension('fzf')
 telescope.load_extension('neoclip')
-telescope.load_extension('media_files')
 telescope.load_extension('projects')
 
 M.project_files = function()
