@@ -1,2 +1,3 @@
 # nvim-config
-nvim config for web development
+
+neovim config for web development
