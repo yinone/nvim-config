@@ -13,6 +13,11 @@ local opt = { noremap = true, silent = true }
 -- windows 分屏快捷键
 map('n', 'sv', ':vsp<CR>', opt)
 map('n', 'sh', ':sp<CR>', opt)
+map('n', '<Left>', ':vertical resize +1<CR>', opt)
+map('n', '<Right>', ':vertical resize -1<CR>', opt)
+map('n', '<Up>', ':resize -1<CR>', opt)
+map('n', '<Down>', ':resize +1<CR>', opt)
+
 -- 关闭当前
 map('n', 'sc', '<C-w>c', opt)
 -- 关闭其他
@@ -44,12 +49,13 @@ map('n', '<C-d>', '9j', opt)
 -- 退出
 map('i', 'jj', '<ESC>', opt)
 map('n', '<leader>q', ':q<CR>', opt)
-map('n', '<leader>qq', ':q!<CR>', opt)
+map('n', '<leader>qq', ':qa<CR>', opt)
 map('n', '<leader>w', ':w!<CR>', opt)
 map('n', '<leader>wa', ':wa<CR>', opt)
 map('i', '<C-s>', '<ESC>:w!<CR>', opt)
 map('n', '<C-s>', '<ESC>:w!<CR>', opt)
 map('n', '<leader>x', ':x<CR>', opt)
+map('n', '<ESC>', ':nohlsearch<Bar>:echo<CR>', opt)
 
 -- 插件快捷键
 local pluginKeys = {}

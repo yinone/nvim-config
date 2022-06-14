@@ -31,11 +31,10 @@ autocmd(
   { 'BufWritePost' }, {
     group = myAutoGroup,
     -- autocmd BufWritePost plugins.lua source <afile> | PackerSync
-    callback = function()
-      if vim.fn.expand('<afile>') == 'plugins.lua' then
-        vim.api.nvim_command('source plugins.lua')
-        vim.api.nvim_command('PackerSync')
-      end
+    pattern = { '*/nvim/lua/plugins.lua' },
+    callback = function(opts)
+      vim.api.nvim_command('source ~/.config/nvim/lua/plugins.lua')
+      vim.api.nvim_command('PackerSync')
     end
   }
 )

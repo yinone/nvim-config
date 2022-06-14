@@ -33,6 +33,14 @@ packer.startup(
   {
     function(use)
 
+      -- form ui
+      use {
+        'stevearc/dressing.nvim',
+        config = function()
+          require('dressing').setup {}
+        end
+      }
+
       -- Packer 可以管理自己本身
       use 'wbthomason/packer.nvim'
 
@@ -54,6 +62,9 @@ packer.startup(
           require('project_nvim').setup {}
         end
       }
+
+      -- filetype
+      use { 'nathom/filetype.nvim' }
 
       -- go to num line
       use {
