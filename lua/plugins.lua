@@ -33,16 +33,11 @@ packer.startup(
   {
     function(use)
 
-      -- form ui
-      use {
-        'stevearc/dressing.nvim',
-        config = function()
-          require('dressing').setup {}
-        end
-      }
-
       -- Packer 可以管理自己本身
       use 'wbthomason/packer.nvim'
+
+      -- form ui
+      use { 'stevearc/dressing.nvim' }
 
       -- start screen
       use 'mhinz/vim-startify'
@@ -310,7 +305,7 @@ packer.startup(
       compile_on_sync = true,
       display = {
         open_fn = function()
-          return require('packer.util').float({ border = 'single' })
+          return require('packer.util').float({ border = 'rounded' })
         end
       }
     }
