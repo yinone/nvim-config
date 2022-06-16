@@ -5,5 +5,5 @@ if not status then
 end
 
 neoclip.setup(
-  { enable_persistent_history = true, on_paste = { set_reg = true }, default_register = { '+', '*' } }
+  { enable_persistent_history = true, on_paste = { set_reg = true }, default_register = {'"', '+', '*'}
 )
