@@ -36,9 +36,6 @@ packer.startup(
       -- Packer 可以管理自己本身
       use 'wbthomason/packer.nvim'
 
-      -- form ui
-      use { 'stevearc/dressing.nvim' }
-
       -- start screen
       use 'mhinz/vim-startify'
 
