@@ -5,6 +5,7 @@ if not status then
 end
 
 local formatting = null_ls.builtins.formatting
+local code_actions = null_ls.builtins.code_actions
 
 null_ls.setup(
   {
@@ -42,7 +43,8 @@ null_ls.setup(
       formatting.fixjson.with {},
       formatting.lua_format.with(
         { extra_args = { '-c', vim.fn.expand('~/.config/nvim/lua/linter-config/.lua-format.yml') } }
-      )
+      ),
+      code_actions.gitsigns
     },
 
     -- #{m}: message

@@ -43,8 +43,6 @@ packer.startup(
       use 'folke/tokyonight.nvim'
 
       -- git commit author
-      use 'APZelos/blamer.nvim'
-      use 'tpope/vim-fugitive'
       use 'rhysd/conflict-marker.vim'
 
       -- project
@@ -153,7 +151,7 @@ packer.startup(
         {
           'lewis6991/gitsigns.nvim',
           config = function()
-            require('gitsigns').setup()
+            require('gitsigns').setup({ current_line_blame = true })
           end
         }
       )

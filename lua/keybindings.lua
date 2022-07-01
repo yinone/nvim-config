@@ -154,9 +154,10 @@ pluginKeys.mapLSP = function(mapbuf)
   mapbuf('n', 'gd', '<cmd>Lspsaga preview_definition<CR>', opt)
   mapbuf('n', 'gh', '<cmd>Lspsaga hover_doc<cr>', opt)
   mapbuf('n', 'gf', '<cmd>Lspsaga lsp_finder<CR>', opt)
-  mapbuf('n', 'gs', '<cmd>lua require\'telescope.builtin\'.diagnostics()<CR>', opt)
+  mapbuf('n', 'ge', '<cmd>lua require\'telescope.builtin\'.diagnostics()<CR>', opt)
   mapbuf('n', '[e', '<cmd>Lspsaga diagnostic_jump_next<cr>', opt)
   mapbuf('n', ']e', '<cmd>Lspsaga diagnostic_jump_prev<cr>', opt)
+  mapbuf('n', 'gs', '<cmd>Lspsaga show_line_diagnostics<CR>', opt)
   mapbuf('n', 'gr', '<cmd>Lspsaga rename<CR>', opt)
 end
 
