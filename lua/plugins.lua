@@ -45,24 +45,9 @@ packer.startup(
       -- git commit author
       use 'rhysd/conflict-marker.vim'
 
-      -- project
-      use {
-        'ahmedkhalf/project.nvim',
-        config = function()
-          require('project_nvim').setup {}
-        end
-      }
-
       -- filetype
       use { 'nathom/filetype.nvim' }
 
-      -- go to num line
-      use {
-        'nacro90/numb.nvim',
-        config = function()
-          require('numb').setup()
-        end
-      }
       --- typescript comment
       use {
         'JoosepAlviste/nvim-ts-context-commentstring',
@@ -177,14 +162,6 @@ packer.startup(
         }
       )
 
-      -- Smooth scrolling
-      use {
-        'karb94/neoscroll.nvim',
-        config = function()
-          require('neoscroll').setup()
-        end
-      }
-
       -- nvim-autopairs
       use(
         {
@@ -207,14 +184,6 @@ packer.startup(
 
       use({ 'jose-elias-alvarez/null-ls.nvim', requires = { 'nvim-lua/plenary.nvim' } })
 
-      -- http curl
-      use {
-        'NTBBloodbath/rest.nvim',
-        requires = { 'nvim-lua/plenary.nvim' },
-        config = function()
-          require('plugin-config.restapi')
-        end
-      }
       -- waketime
       use 'wakatime/vim-wakatime'
 
@@ -233,7 +202,7 @@ packer.startup(
 
       use 'neovim/nvim-lspconfig'
       use 'williamboman/nvim-lsp-installer'
-      use 'tami5/lspsaga.nvim'
+      use 'glepnir/lspsaga.nvim'
       use({ 'jose-elias-alvarez/nvim-lsp-ts-utils', requires = 'nvim-lua/plenary.nvim' })
 
       -- comment
