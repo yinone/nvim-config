@@ -129,36 +129,18 @@ map('n', '<leader>gc', ':Telescope git_commits<CR>', opt)
 map('n', '<leader>gb', ':Telescope git_branches<CR>', opt)
 map('n', '<leader>gu', ':Telescope git_status<CR>', opt)
 
-pluginKeys.telescopeList = {
-  i = {
-    -- 上下移动
-    ['<C-j>'] = 'move_selection_next',
-    ['<C-k>'] = 'move_selection_previous',
-    ['<Down>'] = 'move_selection_next',
-    ['<Up>'] = 'move_selection_previous',
-    -- 历史记录
-    ['<C-n>'] = 'cycle_history_next',
-    -- ['<C-p>'] = 'cycle_history_prev',
-    -- -- 关闭窗口
-    ['<C-c>'] = 'close',
-    -- 预览窗口上下滚动
-    ['<C-u>'] = 'preview_scrolling_up',
-    ['<C-d>'] = 'preview_scrolling_down'
-  }
-}
-
 --------------------------------- lsp 回调函数快捷键设置 -----------------------
 pluginKeys.mapLSP = function(mapbuf)
 
   mapbuf('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', opt)
-  mapbuf('n', 'gd', '<cmd>Lspsaga preview_definition<CR>', opt)
+  mapbuf('n', 'gd', '<cmd>lua require\'telescope.builtin\'.lsp_definitions()<CR>', opt)
+  mapbuf('n', 'gr', '<cmd>lua require\'telescope.builtin\'.lsp_references()<CR>', opt)
   mapbuf('n', 'gh', '<cmd>Lspsaga hover_doc<cr>', opt)
-  mapbuf('n', 'gf', '<cmd>Lspsaga lsp_finder<CR>', opt)
   mapbuf('n', 'ge', '<cmd>lua require\'telescope.builtin\'.diagnostics()<CR>', opt)
   mapbuf('n', '[e', '<cmd>Lspsaga diagnostic_jump_next<cr>', opt)
   mapbuf('n', ']e', '<cmd>Lspsaga diagnostic_jump_prev<cr>', opt)
   mapbuf('n', 'gs', '<cmd>Lspsaga show_line_diagnostics<CR>', opt)
-  mapbuf('n', 'gr', '<cmd>Lspsaga rename<CR>', opt)
+  mapbuf('n', 'gn', '<cmd>Lspsaga rename<CR>', opt)
 end
 
 -- typescript 快捷键
@@ -181,38 +163,6 @@ pluginKeys.cmp = function(cmp)
   end
 
   return {
-    -- 上一个
-    ['<C-k>'] = cmp.mapping.select_prev_item(),
-    -- 下一个
-    ['<C-j>'] = cmp.mapping.select_next_item(),
-    -- 出现补全
-    ['<A-.>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    -- 取消
-    ['<A-,>'] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
-    -- 确认
-    -- Accept currently selected item. If none selected, `select` first item.
-    -- Set `select` to `false` to only confirm explicitly selected items.
-    ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
-    -- ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-    -- 如果窗口内容太多，可以滚动
-    ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    -- snippets 跳转
-    ['<C-l>'] = cmp.mapping(
-      function(_)
-        if vim.fn['vsnip#available'](1) == 1 then
-          feedkey('<Plug>(vsnip-expand-or-jump)', '')
-        end
-      end, { 'i', 's' }
-    ),
-    ['<C-h>'] = cmp.mapping(
-      function()
-        if vim.fn['vsnip#jumpable'](-1) == 1 then
-          feedkey('<Plug>(vsnip-jump-prev)', '')
-        end
-      end, { 'i', 's' }
-    ),
-
     -- super Tab
     ['<Tab>'] = cmp.mapping(
       function(fallback)
@@ -239,23 +189,6 @@ pluginKeys.cmp = function(cmp)
     )
     -- end of super Tab
   }
-end
-
--------------------------http curl -------------------
-pluginKeys.restApi = function(rest)
-
-  vim.api.nvim_create_user_command(
-    'RestRun', function(opt)
-      rest.run()
-    end, { nargs = 0 }
-  )
-
-  vim.api.nvim_create_user_command(
-    'RestLast', function(opt)
-      rest.last()
-    end, { nargs = 0 }
-  )
-
 end
 
 --------------------------- toggle term ------------------------------------------------
