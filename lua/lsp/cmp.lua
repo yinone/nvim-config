@@ -3,6 +3,7 @@
 -- https://github.com/onsails/lspkind-nvim
 local lspkind = require('lspkind')
 local cmp = require('cmp')
+local snip = require('luasnip')
 
 cmp.setup(
   {
@@ -20,9 +21,16 @@ cmp.setup(
       )
     },
 
+    snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        snip.lsp_expand(args.body)
+      end
+    },
     -- 来源
-    sources = cmp.config
-      .sources({ { name = 'nvim_lsp' }, { name = 'buffer' } }, { { name = 'path' } }),
+    sources = cmp.config.sources(
+      { { name = 'nvim_lsp' }, { name = 'buffer' }, { name = 'luasnip' } }, { { name = 'path' } }
+    ),
 
     -- 快捷键
     mapping = require('keybindings').cmp(cmp)
