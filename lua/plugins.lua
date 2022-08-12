@@ -74,13 +74,16 @@ packer.startup(
       use(
         {
           'akinsho/bufferline.nvim',
-          branch = 'main',
-          requires = { 'kyazdani42/nvim-web-devicons', 'moll/vim-bbye' },
+          tag = 'v2.*',
+          requires = { 'kyazdani42/nvim-web-devicons' },
           config = function()
             require('plugin-config.bufferline')
           end
         }
       )
+
+      -- buffer delete
+      use 'moll/vim-bbye'
 
       -- telescope
       use(
@@ -242,7 +245,7 @@ packer.startup(
       -- toggle term
       use {
         'akinsho/toggleterm.nvim',
-        branch = 'main',
+        tag = 'v2.*',
         config = function()
           require('plugin-config.toggleterm')
         end
