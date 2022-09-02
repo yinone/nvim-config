@@ -39,6 +39,9 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 -- 是否开启代码折叠
 vim.o.foldenable = true
+vim.o.foldlevelstart = 99
+-- vim.o.foldcolumn = '1'
+
 -- 搜索高亮
 vim.o.hlsearch = true
 -- 边输入边搜索
@@ -109,3 +112,4 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrwSettings = 1
 vim.g.loaded_netrwFileHandlers = 1
+vim.g.loaded_remote_plugins = 1
