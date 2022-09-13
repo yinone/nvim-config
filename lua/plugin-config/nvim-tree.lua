@@ -10,6 +10,8 @@ local events = require('nvim-tree.events')
 local utils = require('.../utils.global')
 local uv = vim.loop
 
+vim.cmd('highlight NvimTreeFolderIcon guifg=#8094b4')
+
 nvim_tree.setup(
   {
     -- 显示 git 状态图标
