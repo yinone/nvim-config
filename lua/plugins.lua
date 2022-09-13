@@ -56,6 +56,9 @@ packer.startup(
         end
       }
 
+      -- git diff 
+      use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+
       ------ tmux navigator
       use 'christoomey/vim-tmux-navigator'
 
