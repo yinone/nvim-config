@@ -23,3 +23,5 @@ export const ComponentFC: FC<Props> = (props) => {
     );
   }, [value]);
 };
+
+export default ComponentFC;
