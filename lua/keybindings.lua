@@ -87,7 +87,9 @@ pluginKeys.nvimTreeList = {
 ------------------------ git -----------------------------
 vim.g.blamer_enabled = 1
 vim.g.blamer_show_in_insert_modes = 0
-
+map('n', '<leader>do', ':DiffviewOpen<CR>', opt)
+map('n', '<leader>dc', ':tabclose<CR>', opt)
+map('n', '<leader>dh', ':DiffviewFileHistory')
 ------------------- vsnip ---------------------
 vim.g.vsnip_snippet_dir = vim.fn.expand('~/.config/nvim/lua/snippets')
 
@@ -98,8 +100,7 @@ map('n', '<leader>d', ':BufferLineCyclePrev<CR>', opt)
 -- 关闭
 -- "moll/vim-bbye"
 map('n', '<leader>bd', ':Bdelete!<CR>', opt)
-map('n', '<leader>bc', ':BufferLinePickClose<CR>', opt)
-map('n', '<leader>bp', ':BufferLinePick<CR>', opt)
+map('n', '<leader>bb', ':b#<CR>', opt)
 map('n', '<leader>1', ':BufferLineGoToBuffer 1<CR>', opt)
 map('n', '<leader>2', ':BufferLineGoToBuffer 2<CR>', opt)
 map('n', '<leader>3', ':BufferLineGoToBuffer 3<CR>', opt)

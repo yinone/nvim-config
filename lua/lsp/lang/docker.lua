@@ -1,5 +1,3 @@
-local lspconfig = require('lspconfig')
-
 return {
   cmd = { "docker-langserver", "--stdio" },
   filetypes = { "dockerfile" },

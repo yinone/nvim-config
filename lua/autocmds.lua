@@ -22,7 +22,9 @@ autocmd(
   'BufWritePre', {
     group = myAutoGroup,
     pattern = { '*.ts', '*.js', '*.html', '*.tsx', '*.vue', '*.scss', '*.less', '*.css', '*.lua' },
-    callback = vim.lsp.buf.formatting_sync
+    callback = function()
+      vim.lsp.buf.format({ async = false })
+    end
   }
 )
 

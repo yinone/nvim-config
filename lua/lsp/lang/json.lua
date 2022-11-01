@@ -1,18 +1,12 @@
 return {
-  settings = {
-    json = {
-      schemas = require("schemastore").json.schemas(),
-    },
-  },
-  flags = {
-    debounce_text_changes = 150,
-  },
+  settings = { json = { schemas = require('schemastore').json.schemas() } },
+  flags = { debounce_text_changes = 150 },
   on_attach = function(client, bufnr)
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
     local function buf_set_keymap(...)
       vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
-    require("keybindings").mapLSP(buf_set_keymap)
-  end,
+    require('keybindings').mapLSP(buf_set_keymap)
+  end
 }
