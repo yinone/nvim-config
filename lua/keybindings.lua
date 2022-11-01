@@ -89,7 +89,7 @@ vim.g.blamer_enabled = 1
 vim.g.blamer_show_in_insert_modes = 0
 map('n', '<leader>do', ':DiffviewOpen<CR>', opt)
 map('n', '<leader>dc', ':tabclose<CR>', opt)
-map('n', '<leader>dh', ':DiffviewFileHistory', opt)
+map('n', '<leader>dh', ':DiffviewFileHistory<CR>', opt)
 ------------------- vsnip ---------------------
 vim.g.vsnip_snippet_dir = vim.fn.expand('~/.config/nvim/lua/snippets')
 
