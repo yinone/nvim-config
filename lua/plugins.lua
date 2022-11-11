@@ -237,6 +237,15 @@ packer.startup(
         }
       )
 
+      -- tags
+      use(
+        {
+          'ludovicchabant/vim-gutentags',
+          config = function()
+            require('plugin-config.gutentags')
+          end
+        }
+      )
       -- nvim-notify
       -- use {
       --   'rcarriga/nvim-notify',
@@ -249,9 +258,6 @@ packer.startup(
       use(
         {
           'folke/noice.nvim',
-          config = function()
-            require('noice').setup()
-          end,
           requires = {
             -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
             'MunifTanjim/nui.nvim',
@@ -259,7 +265,11 @@ packer.startup(
             --   `nvim-notify` is only needed, if you want to use the notification view.
             --   If not available, we use `mini` as the fallback
             'rcarriga/nvim-notify'
-          }
+          },
+          config = function()
+            require('plugin-config.noice')
+          end
+
         }
       )
       -- toggle term
