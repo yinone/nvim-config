@@ -122,9 +122,8 @@ map('n', '<leader>fb', ':Telescope buffers<CR>', opt)
 map('n', '<leader>fh', ':Telescope help_tags<CR>', opt)
 -- registers
 map('n', '<leader>fr', ':Telescope neoclip<CR>', opt)
--- projects
-map('n', '<leader>fp', ':Telescope projects<CR>', opt)
-
+-- tags
+map('n', '<leader>ag', ':Telescope tags<CR>', opt)
 -- git
 map('n', '<leader>gc', ':Telescope git_commits<CR>', opt)
 map('n', '<leader>gb', ':Telescope git_branches<CR>', opt)
