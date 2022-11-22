@@ -1,6 +1,6 @@
 local status, null_ls = pcall(require, 'null-ls')
 if not status then
-  vim.notify('没有找到 null-ls')
+  vim.notify('没有找到 null-ls', 'error')
   return
 end
 
@@ -11,45 +11,13 @@ null_ls.setup(
     debug = true,
     sources = {
       -- Formatting ---------------------
-      -- frontend
-      formatting.prettierd.with(
-        { -- 比默认少了 markdown
-          prefer_local = 'node_modules/.bin',
-          filetypes = {
-            'javascript',
-            'javascriptreact',
-            'typescript',
-            'typescriptreact',
-            'vue',
-            'css',
-            'scss',
-            'less',
-            'html',
-            'jsonc',
-            'yaml',
-            'markdown',
-            'graphql',
-            'handlebars'
-          },
-          env = {
-            string.format(
-              'PRETTIERD_DEFAULT_CONFIG=%s',
-                vim.fn.expand('~/.config/nvim/lua/linter-config/.prettierrc.json')
-            )
-          }
-        }
-      ),
-      formatting.fixjson.with {},
+      formatting.prettier_d_slim,
+      formatting.fixjson,
       formatting.lua_format.with(
         { extra_args = { '-c', vim.fn.expand('~/.config/nvim/lua/linter-config/.lua-format.yml') } }
       )
     },
 
-    -- #{m}: message
-    -- #{s}: source name (defaults to null-ls if not specified)
-    -- #{c}: code (if available)
-    -- 提示格式： [eslint] xxx
-    -- diagnostics_format = "[#{s}] #{m}",
     on_attach = function(client)
       if client.server_capabilities.documentFormattingProvider then
         vim.cmd('autocmd BufWritePre <buffer> lua vim.lsp.buf.format{async = false}')

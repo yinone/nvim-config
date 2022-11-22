@@ -19,6 +19,7 @@ end
 -- vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
 --
 local lspkind = require('lspkind')
+
 lspkind.init(
   {
     -- default: true

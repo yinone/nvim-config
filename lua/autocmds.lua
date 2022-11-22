@@ -17,17 +17,6 @@ autocmd(
 -- 进入Terminal 自动进入插入模式
 autocmd('TermOpen', { group = myAutoGroup, command = 'startinsert' })
 
--- 保存时自动格式化
-autocmd(
-  'BufWritePre', {
-    group = myAutoGroup,
-    pattern = { '*.ts', '*.js', '*.html', '*.tsx', '*.vue', '*.scss', '*.less', '*.css', '*.lua' },
-    callback = function()
-      vim.lsp.buf.format({ async = false })
-    end
-  }
-)
-
 -- 修改lua/plugins.lua 自动更新插件
 autocmd(
   { 'BufWritePost' }, {

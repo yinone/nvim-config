@@ -104,19 +104,6 @@ packer.startup(
         }
       )
 
-      -- clipboard
-      use {
-        'AckslD/nvim-neoclip.lua',
-        requires = {
-          { 'tami5/sqlite.lua', module = 'sqlite' },
-          { 'nvim-telescope/telescope.nvim' }
-          -- {'ibhagwan/fzf-lua'},
-        },
-        config = function()
-          require('plugin-config.neoclip')
-        end
-      }
-
       -- gps
       use(
         {

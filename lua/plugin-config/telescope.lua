@@ -1,6 +1,6 @@
 local status, telescope = pcall(require, 'telescope')
 if not status then
-  vim.notify('没有找到 telescope')
+  vim.notify('没有找到 telescope', 'error')
   return
 end
 -- telescope-config.lua
