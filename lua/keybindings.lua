@@ -59,7 +59,6 @@ map('n', '<ESC>', ':nohlsearch<Bar>:echo<CR>', opt)
 
 -- 插件快捷键
 local pluginKeys = {}
-
 ------------------------- nvim-tree --------------------------------
 map('n', '<leader>n', ':NvimTreeToggle<CR>', opt)
 -- 列表快捷键

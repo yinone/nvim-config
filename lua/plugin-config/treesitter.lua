@@ -9,9 +9,29 @@ treesitter.setup(
   {
     -- 安装 language parser
     -- :TSInstallInfo 命令查看支持的语言
-    -- ensure_installed = { "json", "html", "css", "scss", "vim", "lua", "javascript", "typescript", "tsx", "bash", "go", "vue"},
+    ensure_installed = {
+      'json',
+      'html',
+      'css',
+      'scss',
+      'vim',
+      'lua',
+      'javascript',
+      'typescript',
+      'tsx',
+      'bash',
+      'go',
+      'vue',
+      'git_rebase',
+      'gitignore',
+      'gitcommit',
+      'gitattributes',
+      'markdown',
+      'json5',
+      'yaml'
+    },
 
-    ensure_installed = 'all',
+    -- ensure_installed = 'all',
 
     ignore_install = { 'phpdoc' },
 

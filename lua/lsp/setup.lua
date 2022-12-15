@@ -1,5 +1,6 @@
 local lsp_installer = require('nvim-lsp-installer')
 local capabilities = require('cmp_nvim_lsp').default_capabilities(
+
                        vim.lsp.protocol.make_client_capabilities()
                      )
 local lspconfig = require('lspconfig')
@@ -30,7 +31,6 @@ for name, _ in pairs(servers) do
 
   if server_is_found then
     if not server:is_installed() then
-      print('Installing ' .. name)
       server:install()
     end
 
