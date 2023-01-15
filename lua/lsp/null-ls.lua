@@ -8,7 +8,7 @@ local formatting = null_ls.builtins.formatting
 
 null_ls.setup(
   {
-    debug = true,
+    debug = false,
     sources = {
       -- Formatting ---------------------
       formatting.prettier_d_slim,

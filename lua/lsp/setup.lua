@@ -1,16 +1,37 @@
-local lsp_installer = require('nvim-lsp-installer')
-local capabilities = require('cmp_nvim_lsp').default_capabilities(
+-- :h mason-default-settings
+require('mason').setup(
+  {
+    ui = {
+      icons = { package_installed = '✓', package_pending = '➜', package_uninstalled = '✗' }
+    }
+  }
+)
 
+require('mason-lspconfig').setup(
+  {
+    ensure_installed = {
+      'sumneko_lua',
+      'tsserver',
+      'bashls',
+      'cssls',
+      'html',
+      'jsonls',
+      'gopls',
+      'vuels',
+      'vimls',
+      'cssmodules_ls',
+      'dockerls'
+    }
+  }
+)
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities(
                        vim.lsp.protocol.make_client_capabilities()
                      )
+
 local lspconfig = require('lspconfig')
--- 安装列表
--- https://github.com/williamboman/nvim-lsp-installer#available-lsps
--- { key: 语言 value: 配置文件 }
-lsp_installer.setup {}
 
 local servers = {
-
   sumneko_lua = require('lsp.lang.lua'),
   bashls = require('lsp.lang.bash'),
   tsserver = require('lsp.lang.ts'),
@@ -27,21 +48,14 @@ local servers = {
 
 -- 自动安装 LanguageServers
 for name, _ in pairs(servers) do
-  local server_is_found, server = lsp_installer.get_server(name)
+  local config = servers[name]
 
-  if server_is_found then
-    if not server:is_installed() then
-      server:install()
-    end
-
-    local config = servers[server.name]
-
-    if config == nil then
-      return
-    end
-
-    config.capabilities = capabilities;
-    lspconfig[server.name].setup(config)
-
+  if config == nil then
+    return
   end
+
+  config.capabilities = capabilities;
+
+  lspconfig[name].setup(config)
+
 end

@@ -2,13 +2,14 @@
 vim.diagnostic.config({ virtual_text = true, signs = true, update_in_insert = false })
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-                                                        vim.lsp.diagnostic.on_publish_diagnostics, {
+  vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = false,
     signs = true,
     underline = true,
     update_in_insert = false
   }
-                                                      )
+)
+
 
 local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 for type, icon in pairs(signs) do
@@ -66,6 +67,3 @@ lspkind.init(
     }
   }
 )
-
-local lspsaga = require('lspsaga')
-lspsaga.init_lsp_saga()

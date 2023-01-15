@@ -47,13 +47,6 @@ return {
           Type = {},
           Parameter = {},
           Enum = {}
-          -- Example format customization for `Type` kind:
-          -- Type = {
-          --     highlight = "Comment",
-          --     text = function(text)
-          --         return "->" .. text:sub(2)
-          --     end,
-          -- },
         },
 
         -- update imports on file move

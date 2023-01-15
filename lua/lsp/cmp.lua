@@ -1,6 +1,3 @@
--- https:/github.com/neovim/nvim-lspconfig/wiki/Autoco-- https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
--- https://github.com/hrsh7th/nvim-cmp
--- https://github.com/onsails/lspkind-nvim
 local lspkind = require('lspkind')
 local cmp = require('cmp')
 local snip = require('luasnip')
@@ -10,7 +7,6 @@ cmp.setup(
     formatting = {
       format = lspkind.cmp_format(
         {
-
           mode = 'symbol_text',
           maxwidth = 50,
           before = function(entry, vim_item)
