@@ -4,4 +4,4 @@ if not status then
   return
 end
 
-noice.setup({ messages = { enabled = false } })
+noice.setup({ messages = { enabled = false }, notify = { enabled = false } })

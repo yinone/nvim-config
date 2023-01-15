@@ -40,7 +40,7 @@ packer.startup(
       use 'mhinz/vim-startify'
 
       -- tokyonight
-      use 'folke/tokyonight.nvim'
+      use { 'folke/tokyonight.nvim', branch = 'main' }
 
       -- git commit author
       use 'rhysd/conflict-marker.vim'
@@ -180,6 +180,11 @@ packer.startup(
       -- waketime
       use 'wakatime/vim-wakatime'
 
+      --- lsp config
+      use({ 'williamboman/mason.nvim' })
+      use({ 'williamboman/mason-lspconfig.nvim' })
+      use({ 'neovim/nvim-lspconfig' })
+
       -- cmp
       use 'hrsh7th/cmp-nvim-lsp'
       use 'hrsh7th/cmp-buffer'
@@ -193,23 +198,19 @@ packer.startup(
       -- lspkind
       use 'onsails/lspkind-nvim'
 
-      use 'neovim/nvim-lspconfig'
-      use 'williamboman/nvim-lsp-installer'
-      use 'glepnir/lspsaga.nvim'
+      use(
+        {
+          'glepnir/lspsaga.nvim',
+          branch = 'main',
+          config = function()
+            require('lspsaga').setup({})
+          end
+        }
+      )
       use({ 'jose-elias-alvarez/nvim-lsp-ts-utils', requires = 'nvim-lua/plenary.nvim' })
 
       -- comment
       use 'tpope/vim-commentary'
-
-      -- surround
-      use(
-        {
-          'ur4ltz/surround.nvim',
-          config = function()
-            require('plugin-config.surround')
-          end
-        }
-      )
 
       -- JSON 增强
       use('b0o/schemastore.nvim')
@@ -223,7 +224,6 @@ packer.startup(
           end
         }
       )
-
       -- tags
       use(
         {
@@ -233,13 +233,6 @@ packer.startup(
           end
         }
       )
-      -- nvim-notify
-      -- use {
-      --   'rcarriga/nvim-notify',
-      --   config = function()
-      --     vim.notify = require('notify')
-      --   end
-      -- }
 
       -- Packer
       use(
