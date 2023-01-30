@@ -138,6 +138,14 @@ require('lazy').setup(
 
     { 'jose-elias-alvarez/null-ls.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
 
+    {
+      'glepnir/lspsaga.nvim',
+      branch = 'main',
+      config = function()
+        require('lspsaga').setup({})
+      end
+    },
+
     -- waketime
     'wakatime/vim-wakatime',
 
@@ -158,14 +166,6 @@ require('lazy').setup(
     'saadparwaiz1/cmp_luasnip',
     -- lspkind
     'onsails/lspkind-nvim',
-
-    {
-      'glepnir/lspsaga.nvim',
-      branch = 'main',
-      config = function()
-        require('lspsaga').setup({})
-      end
-    },
 
     { 'jose-elias-alvarez/nvim-lsp-ts-utils', dependencies = 'nvim-lua/plenary.nvim' },
 

@@ -127,6 +127,7 @@ map('n', '<leader>ag', ':Telescope tags<CR>', opt)
 map('n', '<leader>gc', ':Telescope git_commits<CR>', opt)
 map('n', '<leader>gb', ':Telescope git_branches<CR>', opt)
 map('n', '<leader>gu', ':Telescope git_status<CR>', opt)
+map('n', '<leader><leader>', ':Telescope file_browser<CR>', opt)
 
 --------------------------------- lsp 回调函数快捷键设置 -----------------------
 pluginKeys.mapLSP = function(mapbuf)
