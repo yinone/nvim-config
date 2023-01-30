@@ -1,289 +1,230 @@
-local fn = vim.fn
-local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-local paccker_bootstrap
-if fn.empty(fn.glob(install_path)) > 0 then
-  vim.notify('正在安装Pakcer.nvim，请稍后...', 'info')
-  paccker_bootstrap = fn.system(
-                        {
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system(
+    {
       'git',
       'clone',
-      '--depth',
-      '1', -- "https://github.com/wbthomason/packer.nvim",
-      'https://gitcode.net/mirrors/wbthomason/packer.nvim',
-      install_path
+      '--filter=blob:none',
+      'https://github.com/folke/lazy.nvim.git',
+      '--branch=stable', -- latest stable release
+      lazypath
     }
-                      )
-
-  -- https://github.com/wbthomason/packer.nvim/issues/750
-  local rtp_addition = vim.fn.stdpath('data') .. '/site/pack/*/start/*'
-  if not string.find(vim.o.runtimepath, rtp_addition) then
-    vim.o.runtimepath = rtp_addition .. ',' .. vim.o.runtimepath
-  end
-  vim.notify('Pakcer.nvim 安装完毕', 'info')
+  )
 end
+vim.opt.rtp:prepend(lazypath)
 
--- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, 'packer')
-if not status_ok then
-  vim.notify('没有安装 packer.nvim', 'info')
-  return
-end
-
-packer.startup(
+require('lazy').setup(
   {
-    function(use)
 
-      -- Packer 可以管理自己本身
-      use 'wbthomason/packer.nvim'
+    -- start screen
+    'mhinz/vim-startify',
 
-      -- start screen
-      use 'mhinz/vim-startify'
+    -- tokyonight
+    { 'folke/tokyonight.nvim', branch = 'main' },
 
-      -- tokyonight
-      use { 'folke/tokyonight.nvim', branch = 'main' }
+    -- git commit author
+    'rhysd/conflict-marker.vim',
 
-      -- git commit author
-      use 'rhysd/conflict-marker.vim'
+    -- filetype
+    'nathom/filetype.nvim',
 
-      -- filetype
-      use { 'nathom/filetype.nvim' }
+    --- typescript comment
+    {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+      config = function()
+        require('nvim-treesitter.configs').setup { context_commentstring = { enable = true } }
+      end
+    },
 
-      --- typescript comment
-      use {
-        'JoosepAlviste/nvim-ts-context-commentstring',
-        config = function()
-          require('nvim-treesitter.configs').setup { context_commentstring = { enable = true } }
-        end
-      }
+    -- git diff 
+    { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' },
 
-      -- git diff 
-      use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+    ------ tmux navigator
+    'christoomey/vim-tmux-navigator',
 
-      ------ tmux navigator
-      use 'christoomey/vim-tmux-navigator'
+    -- nvim-tree
+    {
+      'kyazdani42/nvim-tree.lua',
+      dependencies = 'kyazdani42/nvim-web-devicons',
+      config = function()
+        require('plugin-config.nvim-tree')
+      end
+    },
 
-      -- nvim-tree
-      use(
-        {
-          'kyazdani42/nvim-tree.lua',
-          requires = 'kyazdani42/nvim-web-devicons',
-          config = function()
-            require('plugin-config.nvim-tree')
-          end
-        }
-      )
+    -- bufferline
+    {
+      'akinsho/bufferline.nvim',
+      version = 'v3.*',
+      dependencies = { 'kyazdani42/nvim-web-devicons' },
+      config = function()
+        require('plugin-config.bufferline')
+      end
+    },
 
-      -- bufferline
-      use(
-        {
-          'akinsho/bufferline.nvim',
-          tag = 'v2.*',
-          requires = { 'kyazdani42/nvim-web-devicons' },
-          config = function()
-            require('plugin-config.bufferline')
-          end
-        }
-      )
+    -- buffer delete
+    'moll/vim-bbye',
 
-      -- buffer delete
-      use 'moll/vim-bbye'
+    -- telescope
+    {
+      'nvim-telescope/telescope.nvim',
+      version = '0.1.1',
+      dependencies = { 'nvim-lua/plenary.nvim' },
+      config = function()
+        require('plugin-config.telescope')
+      end
+    },
 
-      -- telescope
-      use(
-        {
-          'nvim-telescope/telescope.nvim',
-          requires = {
-            'nvim-lua/plenary.nvim',
-            'LinArcX/telescope-env.nvim',
-            { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-          },
-          config = function()
-            require('plugin-config.telescope')
-            -- This will load fzy_native and have it override the default file sorter
-          end
-        }
-      )
+    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+    { 'nvim-telescope/telescope-file-browser.nvim' },
 
-      -- gps
-      use(
-        {
-          'SmiteshP/nvim-gps',
-          requires = 'nvim-treesitter/nvim-treesitter',
-          config = function()
-            require('nvim-gps').setup()
-          end
-        }
-      )
+    -- gps
+    {
+      'SmiteshP/nvim-gps',
+      dependencies = 'nvim-treesitter/nvim-treesitter',
+      config = function()
+        require('nvim-gps').setup()
+      end
+    },
 
-      -- statusline
-      use {
-        'nvim-lualine/lualine.nvim',
-        requires = { { 'kyazdani42/nvim-web-devicons', opt = true } },
-        config = function()
-          require('plugin-config.statusline')
-        end
-      }
+    -- statusline
+    {
+      'nvim-lualine/lualine.nvim',
+      dependencies = { { 'kyazdani42/nvim-web-devicons', lazy = true } },
+      config = function()
+        require('plugin-config.statusline')
+      end
+    },
 
-      -- gitsigns
-      use(
-        {
-          'lewis6991/gitsigns.nvim',
-          config = function()
-            require('gitsigns').setup({ current_line_blame = true })
-          end
-        }
-      )
+    -- gitsigns
+    {
+      'lewis6991/gitsigns.nvim',
+      config = function()
+        require('gitsigns').setup({ current_line_blame = true })
+      end
+    },
 
-      -- indent-blankline
-      use(
-        {
-          'lukas-reineke/indent-blankline.nvim',
-          config = function()
-            require('plugin-config.indent')
-          end
-        }
-      )
+    -- indent-blankline
+    {
+      'lukas-reineke/indent-blankline.nvim',
+      config = function()
+        require('plugin-config.indent')
+      end
+    },
 
-      -- nvim-treesitter
-      use(
-        {
-          'nvim-treesitter/nvim-treesitter',
-          run = ':TSUpdate',
-          config = function()
-            require('plugin-config.treesitter')
-          end
-        }
-      )
+    -- nvim-treesitter
+    {
+      'nvim-treesitter/nvim-treesitter',
+      build = ':TSUpdate',
+      config = function()
+        require('plugin-config.treesitter')
+      end
+    },
 
-      -- nvim-autopairs
-      use(
-        {
-          'windwp/nvim-autopairs',
-          config = function()
-            require('plugin-config.autopairs')
-          end
-        }
-      )
+    -- nvim-autopairs
+    {
+      'windwp/nvim-autopairs',
+      config = function()
+        require('plugin-config.autopairs')
+      end
+    },
 
-      -- auto-close-tag
-      use(
-        {
-          'windwp/nvim-ts-autotag',
-          config = function()
-            require('nvim-ts-autotag').setup()
-          end
-        }
-      )
+    -- auto-close-tag
+    {
+      'windwp/nvim-ts-autotag',
+      config = function()
+        require('nvim-ts-autotag').setup()
+      end
+    },
 
-      use({ 'jose-elias-alvarez/null-ls.nvim', requires = { 'nvim-lua/plenary.nvim' } })
+    { 'jose-elias-alvarez/null-ls.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
 
-      -- waketime
-      use 'wakatime/vim-wakatime'
+    -- waketime
+    'wakatime/vim-wakatime',
 
-      --- lsp config
-      use({ 'williamboman/mason.nvim' })
-      use({ 'williamboman/mason-lspconfig.nvim' })
-      use({ 'neovim/nvim-lspconfig' })
+    --- lsp config
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+    'neovim/nvim-lspconfig',
 
-      -- cmp
-      use 'hrsh7th/cmp-nvim-lsp'
-      use 'hrsh7th/cmp-buffer'
-      use 'hrsh7th/cmp-path'
-      use 'hrsh7th/cmp-cmdline'
-      use 'hrsh7th/nvim-cmp'
+    -- cmp
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-cmdline',
+    'hrsh7th/nvim-cmp',
 
-      -- snip
-      use 'L3MON4D3/LuaSnip'
-      use 'saadparwaiz1/cmp_luasnip'
-      -- lspkind
-      use 'onsails/lspkind-nvim'
+    -- snip
+    'L3MON4D3/LuaSnip',
+    'saadparwaiz1/cmp_luasnip',
+    -- lspkind
+    'onsails/lspkind-nvim',
 
-      use(
-        {
-          'glepnir/lspsaga.nvim',
-          branch = 'main',
-          config = function()
-            require('lspsaga').setup({})
-          end
-        }
-      )
-      use({ 'jose-elias-alvarez/nvim-lsp-ts-utils', requires = 'nvim-lua/plenary.nvim' })
+    {
+      'glepnir/lspsaga.nvim',
+      branch = 'main',
+      config = function()
+        require('lspsaga').setup({})
+      end
+    },
 
-      -- comment
-      use 'tpope/vim-commentary'
+    { 'jose-elias-alvarez/nvim-lsp-ts-utils', dependencies = 'nvim-lua/plenary.nvim' },
 
-      -- JSON 增强
-      use('b0o/schemastore.nvim')
+    -- comment
+    'tpope/vim-commentary',
 
-      -- nvim-colorizer
-      use(
-        {
-          'norcalli/nvim-colorizer.lua',
-          config = function()
-            require('colorizer').setup()
-          end
-        }
-      )
-      -- tags
-      use(
-        {
-          'ludovicchabant/vim-gutentags',
-          config = function()
-            require('plugin-config.gutentags')
-          end
-        }
-      )
+    -- JSON 增强
+    'b0o/schemastore.nvim',
 
-      -- Packer
-      use(
-        {
-          'folke/noice.nvim',
-          requires = {
-            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-            'MunifTanjim/nui.nvim',
-            -- OPTIONAL:
-            --   `nvim-notify` is only needed, if you want to use the notification view.
-            --   If not available, we use `mini` as the fallback
-            'rcarriga/nvim-notify'
-          },
-          config = function()
-            require('plugin-config.noice')
-          end
+    -- nvim-colorizer
+    {
+      'norcalli/nvim-colorizer.lua',
+      config = function()
+        require('colorizer').setup()
+      end
+    },
 
-        }
-      )
-      -- toggle term
-      use {
-        'akinsho/toggleterm.nvim',
-        tag = 'v2.*',
-        config = function()
-          require('plugin-config.toggleterm')
-        end
-      }
+    -- tags
+    {
+      'ludovicchabant/vim-gutentags',
+      config = function()
+        require('plugin-config.gutentags')
+      end
+    },
 
-      if paccker_bootstrap then
-        packer.sync()
+    -- notice 
+    {
+      'folke/noice.nvim',
+      dependencies = {
+        -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+        'MunifTanjim/nui.nvim',
+        -- OPTIONAL:
+        --   `nvim-notify` is only needed, if you want to use the notification view.
+        --   If not available, we use `mini` as the fallback
+        'rcarriga/nvim-notify'
+      },
+      config = function()
+        require('plugin-config.noice')
       end
 
-    end,
+    }
 
-    config = {
-      -- 并发数限制
-      max_jobs = 16,
-      -- 自定义源
-      git = {
-        -- default_url_format = "https://hub.fastgit.xyz/%s",
-        -- default_url_format = "https://mirror.ghproxy.com/https://github.com/%s",
-        -- default_url_format = "https://gitcode.net/mirrors/%s",
-        -- default_url_format = "https://gitclone.com/github.com/%s",
-        clone_timeout = 6000
-      },
-      autoclean = true,
-      compile_on_sync = true,
-      display = {
-        open_fn = function()
-          return require('packer.util').float({ border = 'rounded' })
-        end
+  }, {
+    defaults = { lazy = false },
+    install = { colorscheme = { 'tokyonight' } },
+    checker = { enabled = true },
+    change_detection = { notify = false },
+    performance = {
+      rtp = {
+        disabled_plugins = {
+          'gzip',
+          'matchit',
+          'matchparen',
+          'netrwPlugin',
+          'tarPlugin',
+          'tohtml',
+          'tutor',
+          'zipPlugin'
+        }
       }
     }
   }

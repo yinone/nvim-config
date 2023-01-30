@@ -11,7 +11,8 @@ telescope.setup(
     defaults = {
       -- winblend = 40,
       -- 打开弹窗后进入的初始模式，默认为 insert，也可以是 normal
-      initial_mode = 'insert'
+      initial_mode = 'insert',
+      layout_config = { vertical = { width = 0.95 } }
     },
     pickers = {
       -- 内置 pickers 配置
@@ -22,13 +23,17 @@ telescope.setup(
     },
     extensions = {
       -- 扩展插件配置
+      file_browser = {
+        -- use the "ivy" theme if you want
+        cwd_to_path = true
+      }
     }
   }
 )
 
 -- 插件加载
-telescope.load_extension('env');
 telescope.load_extension('fzf')
+telescope.load_extension('file_browser')
 
 M.project_files = function()
   local opts = {} -- define here if you want to define something
