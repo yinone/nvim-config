@@ -6,7 +6,10 @@ end
 
 -- 列表操作快捷键
 local list_keys = require('keybindings').nvimTreeList
-local events = require('nvim-tree.events')
+
+local api = require('nvim-tree.api')
+local Event = api.events.Event
+
 local utils = require('.../utils.global')
 local uv = vim.loop
 
@@ -46,12 +49,13 @@ nvim_tree.setup(
       signcolumn = 'yes'
     },
     actions = { open_file = { resize_window = true } },
-    renderer = { indent_markers = { enable = true } }
+    renderer = { indent_markers = { enable = true }, highlight_git = true },
+    notify = { threshold = vim.log.levels.BEBUG }
   }
 )
 
-events.on_file_created(
-  function(payload)
+api.events.subscribe(
+  Event.FileCreated, function(payload)
 
     local TEMPLATE;
 
