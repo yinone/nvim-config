@@ -27,6 +27,7 @@ treesitter.setup(
       'gitcommit',
       'gitattributes',
       'markdown',
+      'markdown_inline',
       'json5',
       'yaml'
     },

@@ -20,7 +20,13 @@ require('lazy').setup(
     'mhinz/vim-startify',
 
     -- tokyonight
-    { 'folke/tokyonight.nvim', branch = 'main' },
+    {
+      'folke/tokyonight.nvim',
+      config = function()
+        vim.cmd([[colorscheme tokyonight]])
+
+      end
+    },
 
     -- git commit author
     'rhysd/conflict-marker.vim',
