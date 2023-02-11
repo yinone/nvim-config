@@ -122,14 +122,15 @@ map('n', '<leader>gu', ':Telescope git_status<CR>', opt)
 --------------------------------- lsp 回调函数快捷键设置 -----------------------
 pluginKeys.mapLSP = function(mapbuf)
   mapbuf('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', opt)
-  mapbuf('n', 'gd', '<cmd>lua require\'telescope.builtin\'.lsp_definitions()<CR>', opt)
-  mapbuf('n', 'gr', '<cmd>lua require\'telescope.builtin\'.lsp_references()<CR>', opt)
+  mapbuf('n', 'gd', '<cmd>Lspsaga goto_definition<CR>', opt)
+  mapbuf('n', 'gr', '<cmd>Lspsaga lsp_finder<CR>', opt)
   mapbuf('n', 'gh', '<cmd>Lspsaga hover_doc<cr>', opt)
   mapbuf('n', 'ge', '<cmd>lua require\'telescope.builtin\'.diagnostics()<CR>', opt)
   mapbuf('n', '[e', '<cmd>Lspsaga diagnostic_jump_next<cr>', opt)
   mapbuf('n', ']e', '<cmd>Lspsaga diagnostic_jump_prev<cr>', opt)
   mapbuf('n', 'gs', '<cmd>Lspsaga show_line_diagnostics<CR>', opt)
   mapbuf('n', 'gn', '<cmd>Lspsaga rename<CR>', opt)
+  mapbuf('n', 'gp', '<cmd>Lspsaga peek_definition<CR>', opt)
 end
 
 -- toggle term
