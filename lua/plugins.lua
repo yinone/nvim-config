@@ -20,13 +20,7 @@ require('lazy').setup(
     'mhinz/vim-startify',
 
     -- tokyonight
-    {
-      'folke/tokyonight.nvim',
-      config = function()
-        vim.cmd([[colorscheme tokyonight]])
-
-      end
-    },
+    { 'folke/tokyonight.nvim' },
 
     -- git commit author
     'rhysd/conflict-marker.vim',
@@ -147,7 +141,7 @@ require('lazy').setup(
       'glepnir/lspsaga.nvim',
       branch = 'main',
       config = function()
-        require('lspsaga').setup({})
+        require('plugin-config.lspsaga')
       end
     },
 
@@ -199,10 +193,7 @@ require('lazy').setup(
     -- notice 
     {
       'folke/noice.nvim',
-      dependencies = {
-        -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-        'MunifTanjim/nui.nvim'
-      },
+      dependencies = { 'MunifTanjim/nui.nvim' },
       config = function()
         require('plugin-config.noice')
       end

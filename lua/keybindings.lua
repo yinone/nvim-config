@@ -100,15 +100,6 @@ map('n', '<leader>d', ':BufferLineCyclePrev<CR>', opt)
 -- "moll/vim-bbye"
 map('n', '<leader>bd', ':Bdelete!<CR>', opt)
 map('n', '<leader>bb', ':b#<CR>', opt)
-map('n', '<leader>1', ':BufferLineGoToBuffer 1<CR>', opt)
-map('n', '<leader>2', ':BufferLineGoToBuffer 2<CR>', opt)
-map('n', '<leader>3', ':BufferLineGoToBuffer 3<CR>', opt)
-map('n', '<leader>4', ':BufferLineGoToBuffer 4<CR>', opt)
-map('n', '<leader>5', ':BufferLineGoToBuffer 5<CR>', opt)
-map('n', '<leader>6', ':BufferLineGoToBuffer 6<CR>', opt)
-map('n', '<leader>7', ':BufferLineGoToBuffer 7<CR>', opt)
-map('n', '<leader>8', ':BufferLineGoToBuffer 8<CR>', opt)
-map('n', '<leader>9', ':BufferLineGoToBuffer 9<CR>', opt)
 
 --------------------------  Telescope -------------------------------
 -- 查找文件
@@ -130,7 +121,6 @@ map('n', '<leader>gu', ':Telescope git_status<CR>', opt)
 
 --------------------------------- lsp 回调函数快捷键设置 -----------------------
 pluginKeys.mapLSP = function(mapbuf)
-
   mapbuf('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', opt)
   mapbuf('n', 'gd', '<cmd>lua require\'telescope.builtin\'.lsp_definitions()<CR>', opt)
   mapbuf('n', 'gr', '<cmd>lua require\'telescope.builtin\'.lsp_references()<CR>', opt)
@@ -141,6 +131,9 @@ pluginKeys.mapLSP = function(mapbuf)
   mapbuf('n', 'gs', '<cmd>Lspsaga show_line_diagnostics<CR>', opt)
   mapbuf('n', 'gn', '<cmd>Lspsaga rename<CR>', opt)
 end
+
+-- toggle term
+map('n', '<leader>tt', '<cmd>Lspsaga term_toggle<CR>', opt)
 
 -- typescript 快捷键
 pluginKeys.mapTsLSP = function(mapbuf)
@@ -182,20 +175,5 @@ pluginKeys.cmp = function(cmp)
     -- end of super Tab
   }
 end
-
---------------------------- toggle term ------------------------------------------------
-map('n', '<leader>tt', ':exe v:count1 . "ToggleTerm"<CR>', opt)
-
-function _G.set_terminal_keymaps()
-  local opts = { noremap = true }
-  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', 'jk', [[<C-\><C-n>]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
-end
-
-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 return pluginKeys
