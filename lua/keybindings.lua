@@ -131,6 +131,7 @@ pluginKeys.mapLSP = function(mapbuf)
   mapbuf('n', 'gs', '<cmd>Lspsaga show_line_diagnostics<CR>', opt)
   mapbuf('n', 'gn', '<cmd>Lspsaga rename<CR>', opt)
   mapbuf('n', 'gp', '<cmd>Lspsaga peek_definition<CR>', opt)
+  mapbuf('n', 'ot', '<cmd>Lspsaga outline<CR>', opt)
 end
 
 -- toggle term
