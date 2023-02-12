@@ -10,7 +10,7 @@ require('mason').setup(
 require('mason-lspconfig').setup(
   {
     ensure_installed = {
-      'sumneko_lua',
+      'lua_ls',
       'tsserver',
       'bashls',
       'cssls',
@@ -32,7 +32,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(
 local lspconfig = require('lspconfig')
 
 local servers = {
-  sumneko_lua = require('lsp.lang.lua'),
+  lua_ls = require('lsp.lang.lua'),
   bashls = require('lsp.lang.bash'),
   tsserver = require('lsp.lang.ts'),
   html = require('lsp.lang.html'),

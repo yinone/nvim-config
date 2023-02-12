@@ -14,7 +14,7 @@ bufferline.setup(
       numbers = 'both', -- 侧边栏配置
       sort_by = 'insert_after_current',
       show_tab_indicators = true,
-      enforce_regular_tabs = false,
+
       -- 左侧让出 nvim-tree 的位置，显示文字 File Explorer
       offsets = {
         {
@@ -25,7 +25,9 @@ bufferline.setup(
         }
       },
       show_buffer_close_icons = false,
-      separator_style = ''
+      separator_style = { '', '' },
+      indicator = { icon = '', style = 'underline' },
+      highlight = { separator_selected = { fg = '#1d202f', bg = '#1d202f' } }
     }
   }
 )

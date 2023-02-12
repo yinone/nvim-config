@@ -13,6 +13,3 @@ autocmd(
     end
   }
 )
-
--- 进入Terminal 自动进入插入模式
-autocmd('TermOpen', { group = myAutoGroup, command = 'startinsert' })
