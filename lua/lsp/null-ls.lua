@@ -10,8 +10,32 @@ null_ls.setup(
   {
     debug = false,
     sources = {
+
       -- Formatting ---------------------
-      formatting.prettier_d_slim,
+      formatting.prettier_d_slim.with(
+        {
+          filetypes = {
+            'javascript',
+            'javascriptreact',
+            'typescript',
+            'typescriptreact',
+            'vue',
+            'css',
+            'scss',
+            'less',
+            'html',
+            'json',
+            'jsonc',
+            'yaml',
+            'markdown',
+            'markdown.mdx',
+            'graphql',
+            'handlebars',
+            'svelte'
+          }
+
+        }
+      ),
       formatting.fixjson,
       formatting.lua_format.with(
         { extra_args = { '-c', vim.fn.expand('~/.config/nvim/lua/linter-config/.lua-format.yml') } }
@@ -22,7 +46,6 @@ null_ls.setup(
       if client.server_capabilities.documentFormattingProvider then
         vim.cmd('autocmd BufWritePre <buffer> lua vim.lsp.buf.format{async = false}')
       end
-
     end
   }
 )

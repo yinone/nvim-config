@@ -20,7 +20,8 @@ require('mason-lspconfig').setup(
       'vuels',
       'vimls',
       'cssmodules_ls',
-      'dockerls'
+      'dockerls',
+      'svelte'
     }
   }
 )
@@ -42,8 +43,8 @@ local servers = {
   vuels = require('lsp.lang.vue'),
   cssmodules_ls = require('lsp.lang.cssmodule'),
   vimls = require('lsp.lang.vim'),
-  dockerls = require('lsp.lang.docker')
-
+  dockerls = require('lsp.lang.docker'),
+  svelte = require('lsp.lang.svelte')
 }
 
 -- 自动安装 LanguageServers

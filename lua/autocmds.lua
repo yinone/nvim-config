@@ -13,3 +13,13 @@ autocmd(
     end
   }
 )
+
+autocmd(
+  { 'BufEnter' }, {
+    group = myAutoGroup,
+    pattern = { '*.html' },
+    callback = function()
+      vim.api.nvim_command('set filetype=html')
+    end
+  }
+)

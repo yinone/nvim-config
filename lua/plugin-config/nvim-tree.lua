@@ -10,7 +10,7 @@ local list_keys = require('keybindings').nvimTreeList
 local api = require('nvim-tree.api')
 local Event = api.events.Event
 
-local utils = require('.../utils.global')
+local utils = require('utils.global')
 local uv = vim.loop
 
 vim.cmd('highlight NvimTreeFolderIcon guifg=#8094b4')

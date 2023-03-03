@@ -44,8 +44,9 @@ require('lazy').setup(
 
     -- nvim-tree
     {
-      'kyazdani42/nvim-tree.lua',
-      dependencies = 'kyazdani42/nvim-web-devicons',
+      'nvim-tree/nvim-tree.lua',
+      dependencies = 'nvim-tree/nvim-web-devicons',
+      tag = 'nightly',
       config = function()
         require('plugin-config.nvim-tree')
       end
@@ -55,7 +56,7 @@ require('lazy').setup(
     {
       'akinsho/bufferline.nvim',
       version = 'v3.*',
-      dependencies = { 'kyazdani42/nvim-web-devicons' },
+      dependencies = { 'nvim-tree/nvim-web-devicons' },
       config = function()
         require('plugin-config.bufferline')
       end
@@ -88,7 +89,7 @@ require('lazy').setup(
     -- statusline
     {
       'nvim-lualine/lualine.nvim',
-      dependencies = { { 'kyazdani42/nvim-web-devicons', lazy = true } },
+      dependencies = { { 'nvim-tree/nvim-web-devicons', lazy = true } },
       config = function()
         require('plugin-config.statusline')
       end
