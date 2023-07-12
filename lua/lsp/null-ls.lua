@@ -5,6 +5,7 @@ if not status then
 end
 
 local formatting = null_ls.builtins.formatting
+local code_action = null_ls.builtins.code_actions
 
 null_ls.setup(
   {
@@ -12,7 +13,7 @@ null_ls.setup(
     sources = {
 
       -- Formatting ---------------------
-      formatting.prettier_d_slim.with(
+      formatting.prettierd.with(
         {
           filetypes = {
             'javascript',
@@ -36,6 +37,7 @@ null_ls.setup(
 
         }
       ),
+      code_action.eslint_d,
       formatting.fixjson,
       formatting.lua_format.with(
         { extra_args = { '-c', vim.fn.expand('~/.config/nvim/lua/linter-config/.lua-format.yml') } }
@@ -44,7 +46,7 @@ null_ls.setup(
 
     on_attach = function(client)
       if client.server_capabilities.documentFormattingProvider then
-        vim.cmd('autocmd BufWritePre <buffer> lua vim.lsp.buf.format{async = false}')
+        vim.cmd('autocmd BufWritePost <buffer> lua vim.lsp.buf.format({ timeout_ms = 2000 })')
       end
     end
   }

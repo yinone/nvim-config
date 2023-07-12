@@ -46,6 +46,9 @@ map('n', '<C-k>', '4k', opt)
 map('n', '<C-u>', '9k', opt)
 map('n', '<C-d>', '9j', opt)
 
+-- 全选
+map('n', '<leader>uu', ':Lazy sync<CR>', opt)
+map('n', '<leader>a', 'gg<S-v>G', opt)
 -- 退出
 map('i', 'jj', '<ESC>', opt)
 map('n', '<leader>q', ':q<CR>', opt)
@@ -82,6 +85,9 @@ pluginKeys.nvimTreeList = {
   { key = 's', action = 'system_open' },
   { key = 'C', action = 'cd' }
 }
+
+-- http request --
+map('n', '<leader>rr', '<Plug>RestNvim', opt)
 
 ------------------------ git -----------------------------
 vim.g.blamer_enabled = 1
@@ -123,7 +129,7 @@ map('n', '<leader>gu', ':Telescope git_status<CR>', opt)
 pluginKeys.mapLSP = function(mapbuf)
   mapbuf('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', opt)
   mapbuf('n', 'gd', '<cmd>Lspsaga goto_definition<CR>', opt)
-  mapbuf('n', 'gr', '<cmd>Lspsaga lsp_finder<CR>', opt)
+  mapbuf('n', 'gr', '<cmd>Lspsaga finder<CR>', opt)
   mapbuf('n', 'gh', '<cmd>Lspsaga hover_doc<cr>', opt)
   mapbuf('n', 'ge', '<cmd>lua require\'telescope.builtin\'.diagnostics()<CR>', opt)
   mapbuf('n', '[e', '<cmd>Lspsaga diagnostic_jump_next<cr>', opt)

@@ -24,8 +24,8 @@ lualine.setup(
     sections = {
       lualine_c = {
         'filename',
-        { gps.get_location, cond = gps.is_available },
-        { 'lsp_progress', spinner_symbols = { ' ', ' ', ' ', ' ', ' ', ' ' } }
+        { gps.get_location, cond = gps.is_available }
+        -- { 'lsp_progress', spinner_symbols = { ' ', ' ', ' ', ' ', ' ', ' ' } }
       },
       lualine_x = { 'filesize', 'encoding', 'filetype' }
     }

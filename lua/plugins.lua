@@ -19,6 +19,8 @@ require('lazy').setup(
     -- start screen
     'mhinz/vim-startify',
 
+    { 'rest-nvim/rest.nvim', config = function() require('plugin-config.rest') end },
+
     -- tokyonight
     { 'folke/tokyonight.nvim' },
 
@@ -198,7 +200,18 @@ require('lazy').setup(
       config = function()
         require('plugin-config.noice')
       end
+    },
 
+    {
+      'kylechui/nvim-surround',
+      event = 'VeryLazy',
+      config = function()
+        require('nvim-surround').setup(
+          {
+            -- Configuration here, or leave empty to use defaults
+          }
+        )
+      end
     }
 
   }, {
