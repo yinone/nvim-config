@@ -13,20 +13,12 @@ lualine.setup(
       -- https://github.com/nvim-lualine/lualine.nvim/blob/master/THEMES.md
       theme = 'horizon',
       -- 分割线
-      component_separators = { left = '|', right = '|' }
-      -- https://github.com/ryanoasis/powerline-extra-symbols
-      -- section_separators = {
-      --     left = " ",
-      --     right = ""
-      -- }
+      component_separators = { left = '|', right = '|' },
+      icons_enabled = true,
     },
     extensions = { 'nvim-tree' },
     sections = {
-      lualine_c = {
-        'filename',
-        { gps.get_location, cond = gps.is_available }
-        -- { 'lsp_progress', spinner_symbols = { ' ', ' ', ' ', ' ', ' ', ' ' } }
-      },
+      lualine_c = { 'filename', { gps.get_location, cond = gps.is_available } },
       lualine_x = { 'filesize', 'encoding', 'filetype' }
     }
   }

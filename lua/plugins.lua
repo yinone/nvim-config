@@ -19,7 +19,12 @@ require('lazy').setup(
     -- start screen
     'mhinz/vim-startify',
 
-    { 'rest-nvim/rest.nvim', config = function() require('plugin-config.rest') end },
+    {
+      'rest-nvim/rest.nvim',
+      config = function()
+        require('plugin-config.rest')
+      end
+    },
 
     -- tokyonight
     { 'folke/tokyonight.nvim' },
@@ -194,13 +199,13 @@ require('lazy').setup(
     },
 
     -- notice 
-    {
-      'folke/noice.nvim',
-      dependencies = { 'MunifTanjim/nui.nvim' },
-      config = function()
-        require('plugin-config.noice')
-      end
-    },
+    -- {
+    --   'folke/noice.nvim',
+    --   dependencies = { 'MunifTanjim/nui.nvim' },
+    --   config = function()
+    --     require('plugin-config.noice')
+    --   end
+    -- },
 
     {
       'kylechui/nvim-surround',
