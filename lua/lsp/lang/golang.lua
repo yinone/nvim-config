@@ -9,6 +9,7 @@ return {
       vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
     require('keybindings').mapLSP(buf_set_keymap)
+    require('nvim-navic').attach(client, bufnr)
   end,
   single_file_support = true
 }

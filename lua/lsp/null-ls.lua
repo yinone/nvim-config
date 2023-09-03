@@ -37,7 +37,7 @@ null_ls.setup(
 
         }
       ),
-      code_action.eslint_d,
+      -- code_action.eslint,
       formatting.fixjson,
       formatting.lua_format.with(
         { extra_args = { '-c', vim.fn.expand('~/.config/nvim/lua/linter-config/.lua-format.yml') } }

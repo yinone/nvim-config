@@ -6,5 +6,7 @@ return {
     end
     -- 绑定快捷键
     require('keybindings').mapLSP(buf_set_keymap)
+    require('nvim-navic').attach(client, bufnr)
+
   end
 }

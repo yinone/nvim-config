@@ -1,6 +1,6 @@
 local status, lspsaga = pcall(require, 'lspsaga')
 if not status then
-  vim.notify('没有找到 neoice', 'error')
+  vim.notify('没有找到lspsaga')
   return
 end
 

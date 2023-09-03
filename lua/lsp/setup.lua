@@ -58,5 +58,5 @@ for name, _ in pairs(servers) do
   config.capabilities = capabilities;
 
   lspconfig[name].setup(config)
-
+  
 end

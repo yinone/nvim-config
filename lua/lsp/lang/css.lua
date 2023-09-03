@@ -5,6 +5,9 @@ return {
     local function buf_set_keymap(...)
       vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
+
+        require('nvim-navic').attach(client, bufnr)
+
     -- 绑定快捷键
     require('keybindings').mapLSP(buf_set_keymap)
   end

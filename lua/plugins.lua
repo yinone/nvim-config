@@ -19,13 +19,6 @@ require('lazy').setup(
     -- start screen
     'mhinz/vim-startify',
 
-    {
-      'rest-nvim/rest.nvim',
-      config = function()
-        require('plugin-config.rest')
-      end
-    },
-
     -- tokyonight
     { 'folke/tokyonight.nvim' },
 
@@ -47,7 +40,7 @@ require('lazy').setup(
     { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' },
 
     ------ tmux navigator
-    'christoomey/vim-tmux-navigator',
+    -- 'christoomey/vim-tmux-navigator',
 
     -- nvim-tree
     {
@@ -86,11 +79,7 @@ require('lazy').setup(
 
     -- gps
     {
-      'SmiteshP/nvim-gps',
-      dependencies = 'nvim-treesitter/nvim-treesitter',
-      config = function()
-        require('nvim-gps').setup()
-      end
+      'SmiteshP/nvim-navic',
     },
 
     -- statusline
@@ -189,23 +178,6 @@ require('lazy').setup(
         require('colorizer').setup()
       end
     },
-
-    -- tags
-    {
-      'ludovicchabant/vim-gutentags',
-      config = function()
-        require('plugin-config.gutentags')
-      end
-    },
-
-    -- notice 
-    -- {
-    --   'folke/noice.nvim',
-    --   dependencies = { 'MunifTanjim/nui.nvim' },
-    --   config = function()
-    --     require('plugin-config.noice')
-    --   end
-    -- },
 
     {
       'kylechui/nvim-surround',

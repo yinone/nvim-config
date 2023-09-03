@@ -58,4 +58,8 @@ function M.readFileSync(path)
   return data
 end
 
+function M.buf_set_keymap(...)
+  vim.api.nvim_buf_set_keymap(bufnr, ...)
+end
+
 return M
