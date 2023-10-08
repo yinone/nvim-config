@@ -9,11 +9,12 @@ local code_action = null_ls.builtins.code_actions
 
 null_ls.setup(
   {
-    debug = false,
+    debug = true,
     sources = {
 
       -- Formatting ---------------------
       formatting.prettierd.with(
+
         {
           filetypes = {
             'javascript',
@@ -34,7 +35,6 @@ null_ls.setup(
             'handlebars',
             'svelte'
           }
-
         }
       ),
       -- code_action.eslint,
