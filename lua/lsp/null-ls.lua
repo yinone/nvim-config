@@ -35,13 +35,18 @@ null_ls.setup(
             'handlebars',
             'svelte'
           }
+
         }
       ),
       -- code_action.eslint,
       formatting.fixjson,
       formatting.lua_format.with(
         { extra_args = { '-c', vim.fn.expand('~/.config/nvim/lua/linter-config/.lua-format.yml') } }
-      )
+      ),
+
+      formatting.gofmt,
+      formatting.goimports
+
     },
 
     on_attach = function(client)

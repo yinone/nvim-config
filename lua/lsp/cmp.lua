@@ -1,6 +1,11 @@
 local lspkind = require('lspkind')
 local cmp = require('cmp')
 local snip = require('luasnip')
+local s = snip.snippet
+local t = snip.text_node
+local i = snip.insert_node
+
+snip.add_snippets('all', { s('/', { t({ '/**' }), i(1), t({ '*/' }) }) })
 
 cmp.setup(
   {

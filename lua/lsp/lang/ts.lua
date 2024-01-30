@@ -9,7 +9,8 @@ return {
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
     
-        require('nvim-navic').attach(client, bufnr)
+
+    require('nvim-navic').attach(client, bufnr)
 
     local function buf_set_keymap(...)
       vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -62,5 +63,6 @@ return {
     ts_utils.setup_client(client)
     -- no default maps, so you may want to define some here
     keybindings.mapTsLSP(buf_set_keymap)
+
   end
 }

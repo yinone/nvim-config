@@ -1,6 +1,6 @@
 return {
   cmd = { 'gopls' },
-  filetypes = { 'go', 'gomod', 'gotmpl' },
+  filetypes = { 'go', 'gomod', 'gotmpl', "gowork", },
   root_dir = function()
     return vim.fn.getcwd()
   end,

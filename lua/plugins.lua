@@ -32,8 +32,14 @@ require('lazy').setup(
     {
       'JoosepAlviste/nvim-ts-context-commentstring',
       config = function()
-        require('nvim-treesitter.configs').setup { context_commentstring = { enable = true } }
+        require('ts_context_commentstring').setup {}
       end
+    },
+
+    {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      after = 'nvim-treesitter',
+      requires = 'nvim-treesitter/nvim-treesitter'
     },
 
     -- git diff 
@@ -68,7 +74,7 @@ require('lazy').setup(
     -- telescope
     {
       'nvim-telescope/telescope.nvim',
-      version = '0.1.1',
+      tag = '0.1.4',
       dependencies = { 'nvim-lua/plenary.nvim' },
       config = function()
         require('plugin-config.telescope')
@@ -78,9 +84,7 @@ require('lazy').setup(
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 
     -- gps
-    {
-      'SmiteshP/nvim-navic',
-    },
+    { 'SmiteshP/nvim-navic' },
 
     -- statusline
     {
@@ -146,7 +150,7 @@ require('lazy').setup(
     'wakatime/vim-wakatime',
 
     --- lsp config
-    'williamboman/mason.nvim',
+    {'williamboman/mason.nvim', },
     'williamboman/mason-lspconfig.nvim',
     'neovim/nvim-lspconfig',
 

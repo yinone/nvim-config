@@ -3,14 +3,14 @@ if not status_ok then
   return
 end
 
+vim.wo.colorcolumn = '99999'
+
 require('ibl').setup(
 
   {
     debounce = 100,
     indent = { char = '┊' },
-    -- whitespace = { highlight = { 'CursorColumn', 'Whitespace' } },
-    scope = { exclude = { language = { 'startify' } } },
-
+    scope = { enabled = false },
     exclude = { filetypes = { 'startify' } }
   }
 )
