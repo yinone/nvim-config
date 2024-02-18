@@ -120,6 +120,7 @@ map('n', '<leader>fh', ':Telescope help_tags<CR>', opt)
 map('n', '<leader>fr', ':Telescope neoclip<CR>', opt)
 -- tags
 map('n', '<leader>ag', ':Telescope tags<CR>', opt)
+map('n', '<leader>git', ':Neogit<CR>', opt)
 -- git
 map('n', '<leader>gc', ':Telescope git_commits<CR>', opt)
 map('n', '<leader>gb', ':Telescope git_branches<CR>', opt)
