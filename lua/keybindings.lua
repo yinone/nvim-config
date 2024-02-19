@@ -144,12 +144,6 @@ end
 -- toggle term
 map('n', '<leader>tt', '<cmd>Lspsaga term_toggle<CR>', opt)
 
--- typescript 快捷键
-pluginKeys.mapTsLSP = function(mapbuf)
-  mapbuf('n', 'ts', ':TSLspOrganize<CR>', opt)
-  mapbuf('n', 'tr', ':TSLspRenameFile<CR>', opt)
-  mapbuf('n', 'ti', ':TSLspImportAll<CR>', opt)
-end
 
 -- nvim-cmp 自动补全
 pluginKeys.cmp = function(cmp)

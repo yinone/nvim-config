@@ -150,7 +150,7 @@ require('lazy').setup(
     'wakatime/vim-wakatime',
 
     --- lsp config
-    {'williamboman/mason.nvim', },
+    { 'williamboman/mason.nvim' },
     'williamboman/mason-lspconfig.nvim',
     'neovim/nvim-lspconfig',
 
@@ -167,7 +167,7 @@ require('lazy').setup(
     -- lspkind
     'onsails/lspkind-nvim',
 
-    { 'jose-elias-alvarez/nvim-lsp-ts-utils', dependencies = 'nvim-lua/plenary.nvim' },
+    
 
     -- comment
     'tpope/vim-commentary',
@@ -196,18 +196,17 @@ require('lazy').setup(
     },
 
     {
-  "NeogitOrg/neogit",
-  dependencies = {
-    "nvim-lua/plenary.nvim",         -- required
-    "sindrets/diffview.nvim",        -- optional - Diff integration
+      'NeogitOrg/neogit',
+      dependencies = {
+        'nvim-lua/plenary.nvim', -- required
+        'sindrets/diffview.nvim', -- optional - Diff integration
 
-    -- Only one of these is needed, not both.
-    "nvim-telescope/telescope.nvim", -- optional
-    "ibhagwan/fzf-lua",              -- optional
-  },
-  config = true
-}
-
+        -- Only one of these is needed, not both.
+        'nvim-telescope/telescope.nvim', -- optional
+        'ibhagwan/fzf-lua' -- optional
+      },
+      config = true
+    }
 
   }, {
     defaults = { lazy = false },

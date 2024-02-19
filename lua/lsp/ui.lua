@@ -2,14 +2,13 @@
 vim.diagnostic.config({ virtual_text = true, signs = true, update_in_insert = false })
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
+                                                        vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = false,
     signs = true,
     underline = true,
     update_in_insert = false
   }
-)
-
+                                                      )
 
 local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 for type, icon in pairs(signs) do
@@ -39,31 +38,31 @@ lspkind.init(
     --
     -- default: {}
     symbol_map = {
-      Text = '',
-      Method = '',
-      Function = '',
-      Constructor = '',
-      Field = 'ﰠ',
-      Variable = '',
-      Class = 'ﴯ',
-      Interface = '',
-      Module = '',
-      Property = 'ﰠ',
-      Unit = '塞',
-      Value = '',
-      Enum = '',
-      Keyword = '',
-      Snippet = '',
-      Color = '',
-      File = '',
-      Reference = '',
-      Folder = '',
-      EnumMember = '',
-      Constant = '',
-      Struct = 'פּ',
-      Event = '',
-      Operator = '',
-      TypeParameter = ''
-    }
+      Text = "󰉿",
+      Method = "󰆧",
+      Function = "󰊕",
+      Constructor = "",
+      Field = "󰜢",
+      Variable = "󰀫",
+      Class = "󰠱",
+      Interface = "",
+      Module = "",
+      Property = "󰜢",
+      Unit = "󰑭",
+      Value = "󰎠",
+      Enum = "",
+      Keyword = "󰌋",
+      Snippet = "",
+      Color = "󰏘",
+      File = "󰈙",
+      Reference = "󰈇",
+      Folder = "󰉋",
+      EnumMember = "",
+      Constant = "󰏿",
+      Struct = "󰙅",
+      Event = "",
+      Operator = "󰆕",
+      TypeParameter = "",
+    },
   }
 )
