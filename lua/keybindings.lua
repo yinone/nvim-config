@@ -142,8 +142,14 @@ pluginKeys.mapLSP = function(mapbuf)
 end
 
 -- toggle term
-map('n', '<leader>tt', '<cmd>Lspsaga term_toggle<CR>', opt)
+map('n', '<leader>tt', '<cmd>ToggleTerm size=20<CR>', opt)
 
+-- typescript 快捷键
+pluginKeys.mapTsLSP = function(mapbuf)
+  mapbuf('n', 'ts', ':TSLspOrganize<CR>', opt)
+  mapbuf('n', 'tr', ':TSLspRenameFile<CR>', opt)
+  mapbuf('n', 'ti', ':TSLspImportAll<CR>', opt)
+end
 
 -- nvim-cmp 自动补全
 pluginKeys.cmp = function(cmp)
@@ -152,7 +158,7 @@ pluginKeys.cmp = function(cmp)
     return col ~= 0 and
              vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
   end
-  
+
   return {
     -- super Tab
     ['<CR>'] = cmp.mapping.confirm { select = true },

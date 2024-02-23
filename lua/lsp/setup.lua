@@ -21,7 +21,8 @@ require('mason-lspconfig').setup(
       'vimls',
       'cssmodules_ls',
       'dockerls',
-      'svelte'
+      'svelte',
+      'marksman',
     }
   }
 )

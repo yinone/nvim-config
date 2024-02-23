@@ -167,7 +167,8 @@ require('lazy').setup(
     -- lspkind
     'onsails/lspkind-nvim',
 
-    
+    -- ts utils
+    { 'jose-elias-alvarez/nvim-lsp-ts-utils', dependencies = 'nvim-lua/plenary.nvim' },
 
     -- comment
     'tpope/vim-commentary',
@@ -206,7 +207,13 @@ require('lazy').setup(
         'ibhagwan/fzf-lua' -- optional
       },
       config = true
-    }
+    },
+
+    {
+      'akinsho/toggleterm.nvim',
+      version = '*',
+      config = true,
+          }
 
   }, {
     defaults = { lazy = false },

@@ -6,3 +6,5 @@ neovim config for web development
 
 - Typescript
 - Javascript
+
+
