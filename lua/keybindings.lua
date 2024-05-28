@@ -59,35 +59,11 @@ map('i', '<C-s>', '<ESC>:w!<CR>', opt)
 map('n', '<C-s>', '<ESC>:w!<CR>', opt)
 map('n', '<leader>x', ':x<CR>', opt)
 map('n', '<ESC>', ':nohlsearch<Bar>:echo<CR>', opt)
-
+map('n', '<leader>r', ':%s///g<Left><Left><Left>', opt)
 -- 插件快捷键
 local pluginKeys = {}
 ------------------------- nvim-tree --------------------------------
 map('n', '<leader>n', ':NvimTreeToggle<CR>', opt)
--- 列表快捷键
-pluginKeys.nvimTreeList = {
-  -- 打开文件或文件夹
-  { key = { '<CR>', 'o', '<2-LeftMouse>' }, action = 'edit' },
-  -- 分屏打开文件
-  { key = 'v', action = 'vsplit' },
-  { key = 'h', action = 'split' },
-  -- 显示隐藏文件
-  { key = 'i', action = 'toggle_ignored' }, -- Ignore (node_modules)
-  { key = '.', action = 'toggle_dotfiles' }, -- Hide (dotfiles)
-  -- 文件操作
-  { key = '<F5>', action = 'refresh' },
-  { key = 'a', action = 'create' },
-  { key = 'd', action = 'remove' },
-  { key = 'r', action = 'rename' },
-  { key = 'x', action = 'cut' },
-  { key = 'c', action = 'copy' },
-  { key = 'p', action = 'paste' },
-  { key = 's', action = 'system_open' },
-  { key = 'C', action = 'cd' }
-}
-
--- http request --
-map('n', '<leader>rr', '<Plug>RestNvim', opt)
 
 ------------------------ git -----------------------------
 vim.g.blamer_enabled = 1
@@ -142,7 +118,7 @@ pluginKeys.mapLSP = function(mapbuf)
 end
 
 -- toggle term
-map('n', '<leader>tt', '<cmd>ToggleTerm size=20<CR>', opt)
+map('n', '<leader>tt', '<cmd>:split term://zsh<CR>', opt)
 
 -- typescript 快捷键
 pluginKeys.mapTsLSP = function(mapbuf)

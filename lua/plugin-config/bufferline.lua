@@ -24,10 +24,13 @@ bufferline.setup(
           text_align = 'left'
         }
       },
-      show_buffer_close_icons = false,
-      separator_style = { '', '' },
+      -- separator_style = { '', '' },
       indicator = { icon = '', style = 'underline' },
-      highlights = { separator_selected = { fg = '', bg = '#33333' } }
+      highlights = { separator_selected = { fg = '', bg = '#33333' } },
+      color_icons = true,
+      show_buffer_close_icons = false,
+      -- show_buffer_icons = false,
+      -- always_show_bufferline = true
     }
   }
 )

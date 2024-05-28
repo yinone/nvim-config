@@ -3,13 +3,43 @@ local ts_utils = require('nvim-lsp-ts-utils')
 
 return {
   flags = { debounce_text_changes = 150 },
+  
+  settings = {
+    typescript = {
+      inlayHints = {
+        includeInlayParameterNameHints = "all",
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      },
+    },
+    javascript = {
+      inlayHints = {
+        includeInlayParameterNameHints = "all",
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      },
+    },
+  },
+
   on_attach = function(client, bufnr)
+
+    vim.lsp.inlay_hint.enable(true)
 
     -- 禁用格式化功能，交给专门插件插件处理
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
-    
-        require('nvim-navic').attach(client, bufnr)
+
+    require('nvim-navic').attach(client, bufnr)
 
     local function buf_set_keymap(...)
       vim.api.nvim_buf_set_keymap(bufnr, ...)

@@ -28,14 +28,6 @@ require('lazy').setup(
     -- filetype
     'nathom/filetype.nvim',
 
-    --- typescript comment
-    {
-      'JoosepAlviste/nvim-ts-context-commentstring',
-      config = function()
-        require('ts_context_commentstring').setup {}
-      end
-    },
-
     {
       'nvim-treesitter/nvim-treesitter-textobjects',
       after = 'nvim-treesitter',
@@ -45,14 +37,9 @@ require('lazy').setup(
     -- git diff 
     { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' },
 
-    ------ tmux navigator
-    -- 'christoomey/vim-tmux-navigator',
-
     -- nvim-tree
     {
       'nvim-tree/nvim-tree.lua',
-      dependencies = 'nvim-tree/nvim-web-devicons',
-      tag = 'nightly',
       config = function()
         require('plugin-config.nvim-tree')
       end
@@ -61,7 +48,7 @@ require('lazy').setup(
     -- bufferline
     {
       'akinsho/bufferline.nvim',
-      version = 'v3.*',
+      version = '*',
       dependencies = { 'nvim-tree/nvim-web-devicons' },
       config = function()
         require('plugin-config.bufferline')
@@ -132,7 +119,7 @@ require('lazy').setup(
     {
       'windwp/nvim-ts-autotag',
       config = function()
-        require('nvim-ts-autotag').setup()
+        require('nvim-ts-autotag').setup({})
       end
     },
 
@@ -152,7 +139,7 @@ require('lazy').setup(
     --- lsp config
     { 'williamboman/mason.nvim' },
     'williamboman/mason-lspconfig.nvim',
-    'neovim/nvim-lspconfig',
+    { 'neovim/nvim-lspconfig' },
 
     -- cmp
     'hrsh7th/cmp-nvim-lsp',
@@ -169,9 +156,6 @@ require('lazy').setup(
 
     -- ts utils
     { 'jose-elias-alvarez/nvim-lsp-ts-utils', dependencies = 'nvim-lua/plenary.nvim' },
-
-    -- comment
-    'tpope/vim-commentary',
 
     -- JSON 增强
     'b0o/schemastore.nvim',
@@ -207,13 +191,7 @@ require('lazy').setup(
         'ibhagwan/fzf-lua' -- optional
       },
       config = true
-    },
-
-    {
-      'akinsho/toggleterm.nvim',
-      version = '*',
-      config = true,
-          }
+    }
 
   }, {
     defaults = { lazy = false },
