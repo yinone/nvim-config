@@ -1,58 +1,31 @@
-local status, null_ls = pcall(require, 'null-ls')
-if not status then
-  vim.notify('没有找到 null-ls', 'error')
-  return
-end
+require("conform").setup({
+	format_on_save = {
+		-- These options will be passed to conform.format()
+		timeout_ms = 500,
+		lsp_format = "fallback",
+		async = true,
+	},
+	formatters_by_ft = {
+		typescript = { "prettierd" },
+		typescriptreact = { "prettierd" },
+		javascriptreact = { "prettierd" },
+		json = { "prettierd" },
+		css = { "prettierd" },
+		scss = { "prettierd" },
 
-local formatting = null_ls.builtins.formatting
-local code_action = null_ls.builtins.code_actions
+		lua = { "stylua" },
+		-- Conform will run multiple formatters sequentially
+		python = { "isort", "black" },
+		-- You can customize some of the format options for the filetype (:help conform.format)
+		rust = { "rustfmt", lsp_format = "fallback" },
+		-- Conform will run the first available formatter
+		javascript = { "prettierd", "prettier", stop_after_first = true },
+	},
+})
 
-null_ls.setup(
-  {
-    debug = true,
-    sources = {
-
-      -- Formatting ---------------------
-      formatting.prettierd.with(
-
-        {
-          filetypes = {
-            'javascript',
-            'javascriptreact',
-            'typescript',
-            'typescriptreact',
-            'vue',
-            'css',
-            'scss',
-            'less',
-            'html',
-            'json',
-            'jsonc',
-            'yaml',
-            'markdown',
-            'markdown.mdx',
-            'graphql',
-            'handlebars',
-            'svelte'
-          }
-
-        }
-      ),
-      -- code_action.eslint,
-      formatting.fixjson,
-      formatting.lua_format.with(
-        { extra_args = { '-c', vim.fn.expand('~/.config/nvim/lua/linter-config/.lua-format.yml') } }
-      ),
-
-      formatting.gofmt,
-      formatting.goimports
-
-    },
-
-    on_attach = function(client)
-      if client.server_capabilities.documentFormattingProvider then
-        vim.cmd('autocmd BufWritePost <buffer> lua vim.lsp.buf.format({ timeout_ms = 2000 })')
-      end
-    end
-  }
-)
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*",
+	callback = function(args)
+		require("conform").format({ bufnr = args.buf })
+	end,
+})

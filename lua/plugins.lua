@@ -1,216 +1,216 @@
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system(
-    {
-      'git',
-      'clone',
-      '--filter=blob:none',
-      'https://github.com/folke/lazy.nvim.git',
-      '--branch=stable', -- latest stable release
-      lazypath
-    }
-  )
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup(
-  {
+require("lazy").setup({
 
-    -- start screen
-    'mhinz/vim-startify',
+	-- start screen
+	"mhinz/vim-startify",
 
-    -- tokyonight
-    { 'folke/tokyonight.nvim' },
+	-- tokyonight
+	{ "folke/tokyonight.nvim" },
 
-    -- git commit author
-    'rhysd/conflict-marker.vim',
+	-- git commit author
+	"rhysd/conflict-marker.vim",
 
-    -- filetype
-    'nathom/filetype.nvim',
+	-- filetype
+	"nathom/filetype.nvim",
 
-    {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      after = 'nvim-treesitter',
-      requires = 'nvim-treesitter/nvim-treesitter'
-    },
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		after = "nvim-treesitter",
+		requires = "nvim-treesitter/nvim-treesitter",
+	},
 
-    -- git diff 
-    { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' },
+	-- git diff
+	{ "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
 
-    -- nvim-tree
-    {
-      'nvim-tree/nvim-tree.lua',
-      config = function()
-        require('plugin-config.nvim-tree')
-      end
-    },
+	-- nvim-tree
+	{
+		"nvim-tree/nvim-tree.lua",
+		config = function()
+			require("plugin-config.nvim-tree")
+		end,
+	},
 
-    -- bufferline
-    {
-      'akinsho/bufferline.nvim',
-      version = '*',
-      dependencies = { 'nvim-tree/nvim-web-devicons' },
-      config = function()
-        require('plugin-config.bufferline')
-      end
-    },
+	-- comment
+	{
+		"JoosepAlviste/nvim-ts-context-commentstring",
+		config = function()
+			require("ts_context_commentstring").setup({ enable_autocmd = false })
+		end,
+	},
 
-    -- buffer delete
-    'moll/vim-bbye',
+	{
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup({
+				pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+			})
+		end,
+	},
 
-    -- telescope
-    {
-      'nvim-telescope/telescope.nvim',
-      tag = '0.1.4',
-      dependencies = { 'nvim-lua/plenary.nvim' },
-      config = function()
-        require('plugin-config.telescope')
-      end
-    },
+	-- bufferline
+	{
+		"akinsho/bufferline.nvim",
+		version = "*",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("plugin-config.bufferline")
+		end,
+	},
 
-    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+	-- buffer delete
+	"moll/vim-bbye",
 
-    -- gps
-    { 'SmiteshP/nvim-navic' },
+	-- telescope
+	{
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.4",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("plugin-config.telescope")
+		end,
+	},
 
-    -- statusline
-    {
-      'nvim-lualine/lualine.nvim',
-      dependencies = { { 'nvim-tree/nvim-web-devicons', lazy = true } },
-      config = function()
-        require('plugin-config.statusline')
-      end
-    },
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 
-    -- gitsigns
-    {
-      'lewis6991/gitsigns.nvim',
-      config = function()
-        require('gitsigns').setup({ current_line_blame = true })
-      end
-    },
+	-- gps
+	{ "SmiteshP/nvim-navic" },
 
-    -- indent-blankline
-    {
-      'lukas-reineke/indent-blankline.nvim',
-      config = function()
-        require('plugin-config.indent')
-      end
-    },
+	-- statusline
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { { "nvim-tree/nvim-web-devicons", lazy = true } },
+		config = function()
+			require("plugin-config.statusline")
+		end,
+	},
 
-    -- nvim-treesitter
-    {
-      'nvim-treesitter/nvim-treesitter',
-      build = ':TSUpdate',
-      config = function()
-        require('plugin-config.treesitter')
-      end
-    },
+	-- gitsigns
+	{
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("gitsigns").setup({ current_line_blame = true })
+		end,
+	},
 
-    -- nvim-autopairs
-    {
-      'windwp/nvim-autopairs',
-      config = function()
-        require('plugin-config.autopairs')
-      end
-    },
+	-- indent-blankline
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		config = function()
+			require("plugin-config.indent")
+		end,
+	},
 
-    -- auto-close-tag
-    {
-      'windwp/nvim-ts-autotag',
-      config = function()
-        require('nvim-ts-autotag').setup({})
-      end
-    },
+	-- nvim-treesitter
+	{
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
+		config = function()
+			require("plugin-config.treesitter")
+		end,
+	},
 
-    { 'jose-elias-alvarez/null-ls.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
+	-- nvim-autopairs
+	{
+		"windwp/nvim-autopairs",
+		config = function()
+			require("plugin-config.autopairs")
+		end,
+	},
 
-    {
-      'glepnir/lspsaga.nvim',
-      branch = 'main',
-      config = function()
-        require('plugin-config.lspsaga')
-      end
-    },
+	-- auto-close-tag
+	{
+		"windwp/nvim-ts-autotag",
+		config = function()
+			require("nvim-ts-autotag").setup({})
+		end,
+	},
 
-    -- waketime
-    'wakatime/vim-wakatime',
+	{
+		"stevearc/conform.nvim",
+		opts = {},
+	},
 
-    --- lsp config
-    { 'williamboman/mason.nvim' },
-    'williamboman/mason-lspconfig.nvim',
-    { 'neovim/nvim-lspconfig' },
+	{
+		"glepnir/lspsaga.nvim",
+		branch = "main",
+		config = function()
+			require("plugin-config.lspsaga")
+		end,
+	},
 
-    -- cmp
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-path',
-    'hrsh7th/cmp-cmdline',
-    'hrsh7th/nvim-cmp',
+	-- waketime
+	"wakatime/vim-wakatime",
 
-    -- snip
-    'L3MON4D3/LuaSnip',
-    'saadparwaiz1/cmp_luasnip',
-    -- lspkind
-    'onsails/lspkind-nvim',
+	--- lsp config
+	{ "williamboman/mason.nvim" },
+	"williamboman/mason-lspconfig.nvim",
+	{ "neovim/nvim-lspconfig" },
 
-    -- ts utils
-    { 'jose-elias-alvarez/nvim-lsp-ts-utils', dependencies = 'nvim-lua/plenary.nvim' },
+	-- cmp
+	"hrsh7th/cmp-nvim-lsp",
+	"hrsh7th/cmp-buffer",
+	"hrsh7th/cmp-path",
+	"hrsh7th/cmp-cmdline",
+	"hrsh7th/nvim-cmp",
 
-    -- JSON 增强
-    'b0o/schemastore.nvim',
+	-- snip
+	"L3MON4D3/LuaSnip",
+	"saadparwaiz1/cmp_luasnip",
+	-- lspkind
+	"onsails/lspkind-nvim",
 
-    -- nvim-colorizer
-    {
-      'norcalli/nvim-colorizer.lua',
-      config = function()
-        require('colorizer').setup()
-      end
-    },
+	-- ts utils
+	{ "jose-elias-alvarez/nvim-lsp-ts-utils", dependencies = "nvim-lua/plenary.nvim" },
 
-    {
-      'kylechui/nvim-surround',
-      event = 'VeryLazy',
-      config = function()
-        require('nvim-surround').setup(
-          {
-            -- Configuration here, or leave empty to use defaults
-          }
-        )
-      end
-    },
+	-- JSON 增强
+	"b0o/schemastore.nvim",
 
-    {
-      'NeogitOrg/neogit',
-      dependencies = {
-        'nvim-lua/plenary.nvim', -- required
-        'sindrets/diffview.nvim', -- optional - Diff integration
+	-- nvim-colorizer
+	{
+		"norcalli/nvim-colorizer.lua",
+		config = function()
+			require("colorizer").setup()
+		end,
+	},
 
-        -- Only one of these is needed, not both.
-        'nvim-telescope/telescope.nvim', -- optional
-        'ibhagwan/fzf-lua' -- optional
-      },
-      config = true
-    }
-
-  }, {
-    defaults = { lazy = false },
-    install = { colorscheme = { 'tokyonight' } },
-    checker = { enabled = true },
-    change_detection = { notify = false },
-    performance = {
-      rtp = {
-        disabled_plugins = {
-          'gzip',
-          'matchit',
-          'matchparen',
-          'netrwPlugin',
-          'tarPlugin',
-          'tohtml',
-          'tutor',
-          'zipPlugin'
-        }
-      }
-    }
-  }
-)
+	{
+		"kylechui/nvim-surround",
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup({
+				-- Configuration here, or leave empty to use defaults
+			})
+		end,
+	},
+}, {
+	defaults = { lazy = false },
+	install = { colorscheme = { "tokyonight" } },
+	checker = { enabled = true },
+	change_detection = { notify = false },
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"gzip",
+				"matchit",
+				"matchparen",
+				"netrwPlugin",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+			},
+		},
+	},
+})

@@ -3,33 +3,33 @@ local ts_utils = require('nvim-lsp-ts-utils')
 
 return {
   flags = { debounce_text_changes = 150 },
-  
-  settings = {
-    typescript = {
-      inlayHints = {
-        includeInlayParameterNameHints = "all",
-        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayVariableTypeHints = true,
-        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayEnumMemberValueHints = true,
-      },
-    },
-    javascript = {
-      inlayHints = {
-        includeInlayParameterNameHints = "all",
-        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayVariableTypeHints = true,
-        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayEnumMemberValueHints = true,
-      },
-    },
-  },
+
+  -- settings = {
+  --   typescript = {
+  --     inlayHints = {
+  --       includeInlayParameterNameHints = 'all',
+  --       includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+  --       includeInlayFunctionParameterTypeHints = true,
+  --       includeInlayVariableTypeHints = true,
+  --       includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+  --       includeInlayPropertyDeclarationTypeHints = true,
+  --       includeInlayFunctionLikeReturnTypeHints = true,
+  --       includeInlayEnumMemberValueHints = true
+  --     }
+  --   },
+  --   javascript = {
+  --     inlayHints = {
+  --       includeInlayParameterNameHints = 'all',
+  --       includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+  --       includeInlayFunctionParameterTypeHints = true,
+  --       includeInlayVariableTypeHints = true,
+  --       includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+  --       includeInlayPropertyDeclarationTypeHints = true,
+  --       includeInlayFunctionLikeReturnTypeHints = true,
+  --       includeInlayEnumMemberValueHints = true
+  --     }
+  --   }
+  -- },
 
   on_attach = function(client, bufnr)
 
