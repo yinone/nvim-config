@@ -42,6 +42,13 @@ require("lazy").setup({
 		end,
 	},
 
+	{
+		"nvimdev/lspsaga.nvim",
+		config = function()
+			require("plugin-config.lspsaga")
+		end,
+	},
+
 	-- comment
 	{
 		"JoosepAlviste/nvim-ts-context-commentstring",
@@ -140,14 +147,6 @@ require("lazy").setup({
 	{
 		"stevearc/conform.nvim",
 		opts = {},
-	},
-
-	{
-		"glepnir/lspsaga.nvim",
-		branch = "main",
-		config = function()
-			require("plugin-config.lspsaga")
-		end,
 	},
 
 	-- waketime

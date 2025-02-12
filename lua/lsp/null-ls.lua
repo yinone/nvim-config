@@ -3,8 +3,9 @@ require("conform").setup({
 		-- These options will be passed to conform.format()
 		timeout_ms = 500,
 		lsp_format = "fallback",
-		async = true,
 	},
+	notify_on_error = true,
+	log_level = vim.log.levels.DEBUG,
 	formatters_by_ft = {
 		typescript = { "prettierd" },
 		typescriptreact = { "prettierd" },
@@ -12,7 +13,6 @@ require("conform").setup({
 		json = { "prettierd" },
 		css = { "prettierd" },
 		scss = { "prettierd" },
-
 		lua = { "stylua" },
 		-- Conform will run multiple formatters sequentially
 		python = { "isort", "black" },

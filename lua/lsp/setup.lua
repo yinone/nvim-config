@@ -9,7 +9,7 @@ require("mason-lspconfig").setup({
 	ensure_installed = {
 		"lua_ls",
 		"ts_ls",
-		-- 'bashls',
+		"bashls",
 		"cssls",
 		"html",
 		"jsonls",
@@ -20,6 +20,7 @@ require("mason-lspconfig").setup({
 		"dockerls",
 		-- 'svelte',
 		"marksman",
+		"ruby_lsp",
 	},
 })
 
@@ -29,7 +30,7 @@ local lspconfig = require("lspconfig")
 
 local servers = {
 	lua_ls = require("lsp.lang.lua"),
-	-- bashls = require('lsp.lang.bash'),
+	bashls = require("lsp.lang.bash"),
 	ts_ls = require("lsp.lang.ts"),
 	html = require("lsp.lang.html"),
 	cssls = require("lsp.lang.css"),
@@ -40,6 +41,7 @@ local servers = {
 	vimls = require("lsp.lang.vim"),
 	dockerls = require("lsp.lang.docker"),
 	-- svelte = require('lsp.lang.svelte')
+	ruby_lsp = require("lsp.lang.ruby"),
 }
 
 -- 自动安装 LanguageServers
