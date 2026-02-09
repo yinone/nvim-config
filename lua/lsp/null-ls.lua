@@ -1,9 +1,14 @@
 require("conform").setup({
-	format_on_save = {
-		-- These options will be passed to conform.format()
-		timeout_ms = 500,
-		lsp_format = "fallback",
-	},
+	format_on_save = function(bufnr)
+		-- 禁用 Go 文件的自动格式化（由 autocmds.lua 处理）
+		if vim.bo[bufnr].filetype == "go" then
+			return nil
+		end
+		return {
+			timeout_ms = 500,
+			lsp_format = "fallback",
+		}
+	end,
 	notify_on_error = true,
 	log_level = vim.log.levels.DEBUG,
 	formatters_by_ft = {
@@ -14,18 +19,10 @@ require("conform").setup({
 		css = { "prettierd" },
 		scss = { "prettierd" },
 		lua = { "stylua" },
-		-- Conform will run multiple formatters sequentially
 		python = { "isort", "black" },
-		-- You can customize some of the format options for the filetype (:help conform.format)
 		rust = { "rustfmt", lsp_format = "fallback" },
-		-- Conform will run the first available formatter
 		javascript = { "prettierd", "prettier", stop_after_first = true },
+		-- Go 文件由 autocmds.lua 处理，这里禁用 conform 的自动格式化
+		go = {},
 	},
-})
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*",
-	callback = function(args)
-		require("conform").format({ bufnr = args.buf })
-	end,
 })

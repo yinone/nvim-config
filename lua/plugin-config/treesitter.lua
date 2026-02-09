@@ -6,57 +6,71 @@ if not status then
   return
 end
 
+-- 大文件检测：超过 5000 行或 1MB 的文件禁用 treesitter
+local function disable_large_files(lang, bufnr)
+	local max_filesize = 1024 * 1024 -- 1 MB
+	local max_lines = 5000
+	local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+	local lines = vim.api.nvim_buf_line_count(bufnr)
+	if (ok and stats and stats.size > max_filesize) or lines > max_lines then
+		return true
+	end
+end
+
 require('nvim-treesitter.install').prefer_git = true
-treesitter.setup(
-  {
-    -- 安装 language parser
-    -- :TSInstallInfo 命令查看支持的语言
-    ensure_installed = {
-      'json',
-      'html',
-      'css',
-      'scss',
-      'vim',
-      'lua',
-      'javascript',
-      'typescript',
-      'tsx',
-      'bash',
-      'go',
-      'vue',
-      'git_rebase',
-      'gitignore',
-      'gitcommit',
-      'gitattributes',
-      'markdown',
-      'markdown_inline',
-      'json5',
-      'yaml'
-    },
+treesitter.setup({
+	-- 安装 language parser
+	-- :TSInstallInfo 命令查看支持的语言
+	ensure_installed = {
+		'json',
+		'html',
+		'css',
+		'scss',
+		'vim',
+		'lua',
+		'javascript',
+		'typescript',
+		'tsx',
+		'bash',
+		'go',
+		'vue',
+		'git_rebase',
+		'gitignore',
+		'gitcommit',
+		'gitattributes',
+		'markdown',
+		'markdown_inline',
+		'json5',
+		'yaml'
+	},
 
-    -- ensure_installed = 'all',
+	ignore_install = { 'phpdoc' },
 
-    ignore_install = { 'phpdoc' },
+	-- 启用代码高亮模块
+	highlight = {
+		enable = true,
+		additional_vim_regex_highlighting = false,
+		disable = disable_large_files, -- 大文件禁用
+	},
 
-    -- 启用代码高亮模块
-    highlight = { enable = true, additional_vim_regex_highlighting = false },
+	-- 启用增量选择模块
+	incremental_selection = {
+		enable = true,
+		disable = disable_large_files, -- 大文件禁用
+		keymaps = {
+			init_selection = '<CR>',
+			node_incremental = '<CR>',
+			node_decremental = '<BS>',
+			scope_incremental = '<TAB>'
+		}
+	},
 
-    -- 启用增量选择模块
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = '<CR>',
-        node_incremental = '<CR>',
-        node_decremental = '<BS>',
-        scope_incremental = '<TAB>'
-      }
-    },
-
-    -- 启用代码缩进模块 (=)
-    indent = { enable = true }
-
-  }
-)
+	-- 启用代码缩进模块 (=)
+	indent = {
+		enable = true,
+		disable = disable_large_files, -- 大文件禁用
+	}
+})
 
 -- 开启 Folding 模块
 vim.opt.foldmethod = 'expr'

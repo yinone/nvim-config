@@ -1,6 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
-  "Lua.diagnostics.globals": ["vim", "require"],
+  "Lua.diagnostics.globals": ["vim", "require",
+        "a"],
   "Lua.workspace.checkThirdParty": false,
   "diagnostics.disable": ["redundant-parameter"]
 }
