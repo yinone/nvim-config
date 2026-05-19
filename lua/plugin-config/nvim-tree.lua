@@ -12,7 +12,7 @@ local function my_on_attach(bufnr)
   local Event = api.events.Event
 
   local utils = require('utils.global')
-  local uv = vim.loop
+  local uv = vim.uv
 
   local function opts(desc)
     return {
@@ -73,7 +73,7 @@ nvim_tree.setup(
     update_cwd = true,
     update_focused_file = { enable = true, update_cwd = false },
     -- 隐藏 .文件 和 node_modules 文件夹
-    filters = { dotfiles = false, custom = { '.git', '.cache' }, exclude = { 'node_modules' } },
+    filters = { dotfiles = false, custom = { '^\\.git$', '.cache', '.DS_Store' }, exclude = { 'node_modules' } },
     view = {
       -- 宽度
       width = 30,

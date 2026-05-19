@@ -1,5 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
 		"clone",
@@ -13,10 +13,38 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 
-	-- start screen - 延迟加载
+	-- snacks.nvim - 集成 dashboard / bigfile / notifier / statuscolumn 等
 	{
-		"mhinz/vim-startify",
-		event = "VimEnter",
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		opts = {
+			bigfile = { enabled = true },
+			notifier = { enabled = true, timeout = 3000 },
+			quickfile = { enabled = true },
+			statuscolumn = { enabled = false }, -- 已有 gitsigns 接管 sign 列
+			words = { enabled = true },
+			dashboard = {
+				preset = {
+					keys = {
+						{ icon = " ", key = "f", desc = "Find File", action = ":Telescope find_files" },
+						{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+						{ icon = " ", key = "g", desc = "Find Text", action = ":Telescope live_grep" },
+						{ icon = " ", key = "r", desc = "Recent Files", action = ":Telescope oldfiles" },
+						{ icon = " ", key = "c", desc = "Config", action = ":e $MYVIMRC" },
+						{ icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy" },
+						{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
+					},
+				},
+				sections = {
+					{ section = "header" },
+					{ section = "keys", gap = 1, padding = 1 },
+					{ section = "recent_files", icon = " ", title = "Recent Files", indent = 2, padding = 1 },
+					{ section = "projects", icon = " ", title = "Projects", indent = 2, padding = 1 },
+					{ section = "startup" },
+				},
+			},
+		},
 	},
 
 	-- tokyonight - 优先加载（颜色主题）
@@ -24,6 +52,12 @@ require("lazy").setup({
 		"folke/tokyonight.nvim",
 		lazy = false,
 		priority = 1000,
+	},
+
+	-- tmux/vim pane navigation
+	{
+		"christoomey/vim-tmux-navigator",
+		lazy = false,
 	},
 
 	-- git commit author - 按需加载
@@ -35,8 +69,39 @@ require("lazy").setup({
 	-- treesitter textobjects - 依赖 treesitter
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
+		branch = "main",
 		event = "VeryLazy",
 		dependencies = "nvim-treesitter/nvim-treesitter",
+		config = function()
+			require("nvim-treesitter-textobjects").setup({
+				select = {
+					lookahead = true,
+					selection_modes = {
+						["@parameter.outer"] = "v",
+						["@function.outer"] = "V",
+						["@class.outer"] = "<c-v>",
+					},
+					include_surrounding_whitespace = true,
+				},
+			})
+
+			local select = require("nvim-treesitter-textobjects.select")
+			vim.keymap.set({ "x", "o" }, "af", function()
+				select.select_textobject("@function.outer", "textobjects")
+			end)
+			vim.keymap.set({ "x", "o" }, "if", function()
+				select.select_textobject("@function.inner", "textobjects")
+			end)
+			vim.keymap.set({ "x", "o" }, "ac", function()
+				select.select_textobject("@class.outer", "textobjects")
+			end)
+			vim.keymap.set({ "x", "o" }, "ic", function()
+				select.select_textobject("@class.inner", "textobjects")
+			end)
+			vim.keymap.set({ "x", "o" }, "as", function()
+				select.select_textobject("@local.scope", "locals")
+			end)
+		end,
 	},
 
 	-- git diff - 按需加载
@@ -108,21 +173,25 @@ require("lazy").setup({
 	{
 		"nvim-telescope/telescope.nvim",
 		cmd = "Telescope",
-		keys = {
-			{ "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
-			{ "<C-g>", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
-			{ "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		},
-		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
-			require("plugin-config.telescope")
+			local ok, telescope = pcall(require, "telescope")
+			if not ok then
+				vim.notify("没有找到 telescope")
+				return
+			end
+			telescope.setup({
+				defaults = {
+					initial_mode = "insert",
+					layout_strategy = "horizontal",
+					layout_config = { width = 0.95, preview_width = 0.55 },
+				},
+			})
+			pcall(telescope.load_extension, "fzf")
 		end,
-	},
-
-	{
-		"nvim-telescope/telescope-fzf-native.nvim",
-		build = "make",
-		event = "VeryLazy",
 	},
 
 	-- gps - 延迟加载
@@ -162,6 +231,7 @@ require("lazy").setup({
 	-- nvim-treesitter - 文件打开时加载
 	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
 		event = { "BufReadPre", "BufNewFile" },
 		build = ":TSUpdate",
 		config = function()
@@ -218,41 +288,130 @@ require("lazy").setup({
 		},
 	},
 
-	-- cmp - 插入模式加载
+	-- blink.cmp - Rust 实现的高性能补全
 	{
-		"hrsh7th/nvim-cmp",
+		"saghen/blink.cmp",
+		version = "1.*", -- 使用 release tag，自动下载预编译 fuzzy 二进制
 		event = "InsertEnter",
 		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-cmdline",
-			"L3MON4D3/LuaSnip",
-			"saadparwaiz1/cmp_luasnip",
-			"onsails/lspkind-nvim",
+			{ "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
+			"rafamadriz/friendly-snippets",
+		},
+		opts = {
+			keymap = {
+				preset = "default",
+				["<CR>"] = { "accept", "fallback" },
+				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+				["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+			},
+			appearance = { nerd_font_variant = "mono" },
+			completion = {
+				keyword = { range = "full" },
+				trigger = { show_in_snippet = true },
+				list = { selection = { preselect = true, auto_insert = false } },
+				menu = {
+					border = "rounded",
+					max_height = 12,
+					draw = { treesitter = { "lsp" } },
+				},
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 200,
+					window = { border = "rounded", max_width = 80, max_height = 15 },
+				},
+				ghost_text = { enabled = false },
+			},
+			signature = { enabled = true, window = { border = "rounded" } },
+			sources = {
+				default = { "lsp", "snippets", "buffer", "path" },
+				providers = {
+					lsp = { score_offset = 100 },
+					snippets = { score_offset = 75 },
+					buffer = { score_offset = 50, max_items = 10 },
+					path = { score_offset = 25 },
+				},
+			},
+			snippets = { preset = "luasnip" },
+			cmdline = {
+				keymap = { preset = "cmdline" },
+				completion = { menu = { auto_show = true } },
+			},
+			fuzzy = { implementation = "prefer_rust_with_warning" },
 		},
 	},
 
-	-- ts utils - 文件类型触发
-	{
-		"jose-elias-alvarez/nvim-lsp-ts-utils",
-		ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
-		dependencies = "nvim-lua/plenary.nvim",
-	},
-
-	-- JSON 增强 - JSON 文件触发
+	-- JSON / YAML schema 增强
 	{
 		"b0o/schemastore.nvim",
-		ft = { "json", "jsonc" },
+		ft = { "json", "jsonc", "yaml" },
 	},
 
 	-- nvim-colorizer - 文件打开时加载
+	-- norcalli 版已停止维护且使用了废弃的 vim.tbl_flatten，改用维护中的 catgoose drop-in fork
 	{
-		"norcalli/nvim-colorizer.lua",
+		"catgoose/nvim-colorizer.lua",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			require("colorizer").setup()
 		end,
+	},
+
+	-- oil.nvim - 把目录当 buffer 编辑
+	{
+		"stevearc/oil.nvim",
+		cmd = "Oil",
+		keys = {
+			{ "-", "<cmd>Oil<cr>", desc = "Open parent directory (oil)" },
+		},
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			default_file_explorer = false, -- 与 nvim-tree 共存，不抢 netrw 角色
+			view_options = { show_hidden = true },
+			keymaps = {
+				["q"] = "actions.close",
+				["<C-h>"] = false, -- 让给 tmux-navigator
+				["<C-l>"] = false,
+			},
+		},
+	},
+
+	-- flash.nvim - 跳转
+	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		opts = {},
+		keys = {
+			{ "s", function() require("flash").jump() end, mode = { "n", "x", "o" }, desc = "Flash" },
+			{ "S", function() require("flash").treesitter() end, mode = { "n", "x", "o" }, desc = "Flash Treesitter" },
+			{ "r", function() require("flash").remote() end, mode = "o", desc = "Remote Flash" },
+		},
+	},
+
+	-- which-key - 快捷键提示
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		opts = {
+			preset = "modern",
+			delay = 300,
+			icons = { mappings = false },
+			spec = {
+				{ "<leader>f", group = "Find / File" },
+				{ "<leader>b", group = "Buffer" },
+				{ "<leader>g", group = "Git" },
+				{ "<leader>l", group = "LSP" },
+				{ "<leader>n", group = "NvimTree" },
+				{ "<leader>R", group = "REST" },
+				{ "<leader>D", group = "Debug" },
+			},
+		},
+		keys = {
+			{
+				"<leader>?",
+				function() require("which-key").show({ global = false }) end,
+				desc = "Buffer Local Keymaps (which-key)",
+			},
+		},
 	},
 
 	-- surround - 按需加载
@@ -268,11 +427,53 @@ require("lazy").setup({
 		end,
 	},
 
+	-- kulala - REST client，在 .http 文件里直接发请求调接口
+	{
+		"mistweaverco/kulala.nvim",
+		ft = { "http", "rest" },
+		keys = {
+			{ "<leader>Rs", function() require("kulala").run() end, desc = "Send request" },
+			{ "<leader>Ra", function() require("kulala").run_all() end, desc = "Send all requests" },
+			{ "<leader>Rr", function() require("kulala").replay() end, desc = "Replay last request" },
+			{ "<leader>Rc", function() require("kulala").copy() end, desc = "Copy as cURL" },
+			{ "<leader>Ri", function() require("kulala").inspect() end, desc = "Inspect request" },
+		},
+		opts = {},
+	},
+
+	-- nvim-dap - Go 调试（delve）
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			{ "rcarriga/nvim-dap-ui", dependencies = { "nvim-neotest/nvim-nio" } },
+			"theHamsta/nvim-dap-virtual-text",
+			"leoluz/nvim-dap-go",
+		},
+		keys = {
+			{ "<leader>Db", function() require("dap").toggle_breakpoint() end, desc = "Toggle breakpoint" },
+			{ "<leader>Dc", function() require("dap").continue() end, desc = "Continue / Start" },
+			{ "<leader>Di", function() require("dap").step_into() end, desc = "Step into" },
+			{ "<leader>Do", function() require("dap").step_over() end, desc = "Step over" },
+			{ "<leader>DO", function() require("dap").step_out() end, desc = "Step out" },
+			{ "<leader>Dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
+			{ "<leader>Dl", function() require("dap").run_last() end, desc = "Run last" },
+			{ "<leader>Dt", function() require("dap").terminate() end, desc = "Terminate" },
+			{ "<leader>Du", function() require("dapui").toggle() end, desc = "Toggle DAP UI" },
+			{ "<leader>DT", function() require("dap-go").debug_test() end, desc = "Debug nearest Go test" },
+		},
+		config = function()
+			require("plugin-config.dap")
+		end,
+	},
+
 }, {
 	defaults = { lazy = true }, -- 默认所有插件都延迟加载
+	rocks = { enabled = false },
 	install = { colorscheme = { "tokyonight" } },
 	checker = { enabled = false }, -- 禁用自动检查更新，提升启动速度
 	change_detection = { notify = false },
+	git = { timeout = 300 }, -- 默认 120 太短，大仓库（如 snacks）容易超时
+
 	performance = {
 		cache = { enabled = true },
 		reset_packpath = true,

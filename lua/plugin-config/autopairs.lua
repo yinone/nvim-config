@@ -14,7 +14,5 @@ autopairs.setup(
     }
   }
 )
--- If you want insert `(` after select function or method item
-local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-local cmp = require('cmp')
-cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done({ map_char = { tex = '' } }))
+-- 补全选中函数后自动补 `()`：本配置使用 blink.cmp，
+-- 它默认开启 completion.accept.auto_brackets，无需 nvim-autopairs 的 nvim-cmp 集成。

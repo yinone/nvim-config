@@ -37,19 +37,14 @@ map("n", "<leader>l", "<C-w>l", opt)
 map("v", "<", "<gv", opt)
 map("v", ">", ">gv", opt)
 
--- 代码折叠
-map("n", "z", "za", opt)
 
 -- 上下移动选中文本
 map("v", "J", ":move '>+1<CR>gv-gv", opt)
 map("v", "K", ":move '<-2<CR>gv-gv", opt)
 
--- 上下滚动浏览
-map("n", "<C-j>", "4j", opt)
-map("n", "<C-k>", "4k", opt)
--- ctrl u / ctrl + d  只移动9行，默认移动半屏
-map("n", "<C-u>", "9k", opt)
-map("n", "<C-d>", "9j", opt)
+-- 半屏滚动后居中光标，避免视线跳动
+map("n", "<C-u>", "<C-u>zz", opt)
+map("n", "<C-d>", "<C-d>zz", opt)
 
 -- 全选
 map("n", "<leader>uu", ":Lazy sync<CR>", opt)
@@ -58,10 +53,10 @@ map("n", "<leader>a", "gg<S-v>G", opt)
 map("i", "jj", "<ESC>", opt)
 map("n", "<leader>q", ":q<CR>", opt)
 map("n", "<leader>qq", ":qa<CR>", opt)
-map("n", "<leader>w", ":w!<CR>", opt)
+map("n", "<leader>w", ":w<CR>", opt)
 map("n", "<leader>wa", ":wa<CR>", opt)
-map("i", "<C-s>", "<ESC>:w!<CR>", opt)
-map("n", "<C-s>", "<ESC>:w!<CR>", opt)
+map("i", "<C-s>", "<cmd>w<CR>", opt)
+map("n", "<C-s>", "<cmd>w<CR>", opt)
 map("n", "<leader>x", ":x<CR>", opt)
 map("n", "<ESC>", ":nohlsearch<Bar>:echo<CR>", opt)
 map("n", "<leader>r", ":%s///g<Left><Left><Left>", opt)
@@ -97,11 +92,10 @@ map("n", "<leader>fg", ":Telescope live_grep<CR>", opt)
 map("n", "<leader>fb", ":Telescope buffers<CR>", opt)
 -- helps
 map("n", "<leader>fh", ":Telescope help_tags<CR>", opt)
--- registers
-map("n", "<leader>fr", ":Telescope neoclip<CR>", opt)
--- tags
-map("n", "<leader>ag", ":Telescope tags<CR>", opt)
-map("n", "<leader>git", ":Neogit<CR>", opt)
+-- 兼容旧快捷键
+map("n", "<C-p>", ":Telescope find_files<CR>", opt)
+map("n", "<C-g>", ":Telescope live_grep<CR>", opt)
+map("n", "<leader>b", ":Telescope buffers<CR>", opt)
 -- git
 map("n", "<leader>gc", ":Telescope git_commits<CR>", opt)
 map("n", "<leader>gb", ":Telescope git_branches<CR>", opt)
@@ -125,40 +119,33 @@ end
 -- toggle term
 map("n", "<leader>tt", "<cmd>:split term://zsh<CR>", opt)
 
--- typescript 快捷键
-pluginKeys.mapTsLSP = function(mapbuf)
-	mapbuf("n", "ts", ":TSLspOrganize<CR>", opt)
-	mapbuf("n", "tr", ":TSLspRenameFile<CR>", opt)
-	mapbuf("n", "ti", ":TSLspImportAll<CR>", opt)
+-- typescript 快捷键（原生 LSP 实现，替代已弃用的 nvim-lsp-ts-utils）
+local function ts_code_action(kind)
+	vim.lsp.buf.code_action({ context = { only = { kind } }, apply = true })
 end
 
--- nvim-cmp 自动补全
-pluginKeys.cmp = function(cmp)
-	local has_words_before = function()
-		local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-		return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+local function ts_rename_file()
+	local old = vim.api.nvim_buf_get_name(0)
+	local new = vim.fn.input("New path: ", old)
+	if new == "" or new == old then return end
+	local params = { files = { { oldUri = vim.uri_from_fname(old), newUri = vim.uri_from_fname(new) } } }
+	local resp = vim.lsp.buf_request_sync(0, "workspace/willRenameFiles", params, 2000)
+	if resp then
+		for _, res in pairs(resp) do
+			if res.result then vim.lsp.util.apply_workspace_edit(res.result, "utf-8") end
+		end
 	end
-
-	return {
-		-- super Tab
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
-		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			elseif has_words_before() then
-				cmp.complete()
-			else
-				fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
-			end
-		end, { "i", "s" }),
-
-		["<S-Tab>"] = cmp.mapping(function()
-			if cmp.visible() then
-				cmp.select_prev_item()
-			end
-		end, { "i", "s" }),
-		-- end of super Tab
-	}
+	vim.fn.rename(old, new)
+	vim.cmd("edit " .. vim.fn.fnameescape(new))
+	vim.cmd("bdelete " .. vim.fn.bufnr(old))
 end
+
+pluginKeys.mapTsLSP = function(mapbuf)
+	mapbuf("n", "ts", "", vim.tbl_extend("force", opt, { callback = function() ts_code_action("source.organizeImports") end }))
+	mapbuf("n", "tr", "", vim.tbl_extend("force", opt, { callback = ts_rename_file }))
+	mapbuf("n", "ti", "", vim.tbl_extend("force", opt, { callback = function() ts_code_action("source.addMissingImports") end }))
+end
+
+-- 补全键位由 blink.cmp 自己管理（见 lsp/cmp.lua）
 
 return pluginKeys

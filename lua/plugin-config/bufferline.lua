@@ -26,7 +26,7 @@ bufferline.setup(
       },
       -- separator_style = { '', '' },
       indicator = { icon = '', style = 'underline' },
-      highlights = { separator_selected = { fg = '', bg = '#33333' } },
+      highlights = { separator_selected = { fg = '', bg = '#333333' } },
       color_icons = true,
       show_buffer_close_icons = false,
       -- show_buffer_icons = false,

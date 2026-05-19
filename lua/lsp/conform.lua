@@ -10,7 +10,7 @@ require("conform").setup({
 		}
 	end,
 	notify_on_error = true,
-	log_level = vim.log.levels.DEBUG,
+	log_level = vim.log.levels.WARN,
 	formatters_by_ft = {
 		typescript = { "prettierd" },
 		typescriptreact = { "prettierd" },

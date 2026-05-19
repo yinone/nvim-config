@@ -4,4 +4,4 @@ if not status then
 	return
 end
 
-lspsaga.setup({ symbol_in_winbar = { enable = false }, theme = "tokyonight" })
+lspsaga.setup({ symbol_in_winbar = { enable = false } })

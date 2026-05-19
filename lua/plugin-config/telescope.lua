@@ -1,41 +1,11 @@
-local status, telescope = pcall(require, 'telescope')
-if not status then
-  vim.notify('没有找到 telescope')
-  return
-end
--- telescope-config.lua
 local M = {}
 
-telescope.setup(
-  {
-    defaults = {
-      -- winblend = 40,
-      -- 打开弹窗后进入的初始模式，默认为 insert，也可以是 normal
-      initial_mode = 'insert',
-      layout_strategy = 'horizontal',
-      layout_config = { width = 0.95, preview_width = 0.55 }
-    },
-    pickers = {
-      -- 内置 pickers 配置
-      find_files = {
-        -- 查找文件换皮肤，支持的参数有： dropdown, cursor, ivy
-        -- theme = "dropdown", 
-      }
-    },
-    extensions = {
-      -- 扩展插件配置    
-    }
-  }
-)
-
--- 插件加载
-telescope.load_extension('fzf')
-
 M.project_files = function()
-  local opts = {} -- define here if you want to define something
-  local ok = pcall(require'telescope.builtin'.git_files, opts)
+  local builtin = require("telescope.builtin")
+  local opts = {}
+  local ok = pcall(builtin.git_files, opts)
   if not ok then
-    require'telescope.builtin'.find_files(opts)
+    builtin.find_files(opts)
   end
 end
 
